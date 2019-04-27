@@ -1,6 +1,6 @@
 <!--
         Objectives Here:
-            Make the Search Results appear on this page (so it doesn't go to a different page when you search)
+            Make the Search Results appear on this page (so it doesnt go to a different page when you search)
             Find a better home for the searchbar (maybe have it on the right column on desktop, anchored to the top on mobile/tablet?)
             Possibly ditch the banner
             Run things through the upcoming API instead of just a PHP page running the outputs (so it no longer runs like in __old/actions/loadMore.php)
@@ -10,7 +10,7 @@
                     * Text needs to be bigger on smaller screens
                     * Support for Ultrawide monitors (this probably just means giving the ability to have more than 6 spirits per row)
                     * [ADD MORE HERE]
-            
+
 
 
 
@@ -26,7 +26,7 @@
 <?php include 'templates/header.php'; ?>
 
 <div id="main" class="main">
-    
+
 </div>
 <script>
     //what to put here
