@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="style/home/index.css">
 </head>
 <body>
-    <div class="header">
+    <header>
         <div class="navImgContainer">
             <img src="" alt="header image" />
         </div>
         <h1>Super Smash Brothers Ultimate Spirits Directory</h1>
-    </div>
+    </header>
     <nav>
         <div class="hamburgerContainer">
             <a href="javascript:void(0)" onClick="openSideBar()"><img src="" alt="hamburger Button" id="hamburgerBtn" /></a>
@@ -31,7 +31,6 @@
     </div>
 <script>
     //functions that go here:
-    //  add an event listener to call toggleSideBar when the user swipes left or right on touchscreen devices
     // findAutoResult():
     //    takes value from #searchValue and sends it the autoResult api, which returns a JSON object containing search results, seperated by spirit, game, and series
     //    use the resulting JSON object to build html that goes into the #searchResults div
