@@ -1,0 +1,67 @@
+//generic mixins for things that need vendor prefixes
+@mixin transform($property) {
+    -webkit-transform: $property;
+    -ms-transform: $property;
+    transform: $property;
+}
+@mixin animation($property) {
+    -webkit-animation: $property;
+    animation: $property;
+}
+@mixin background-clip($property) {
+    -webkit-background-clip: $property;
+    background-clip: $property;
+}
+@mixin filter($property) {
+    -webkit-filter: $property;
+    filter: $property
+}
+@mixin flex() {
+    display: -webkit-box;
+    display: ms-flex-box;
+    display: -webkit-flex;
+    display: flex;
+}
+@mixin font-feature-settings($property) {
+    -webkit-font-feature-settings: $property;
+    -moz-font-feature-settings: $property;
+    font-feature-settings: $property;
+}
+@mixin grid() {
+    display: -ms-grid;
+    display: grid;
+}
+@mixin word-break($property) {
+    ms-word-break: $property;
+    word-break: $property;
+}
+@mixin hyphens($property) {
+    -webkit-hyphens: ($property);
+    -moz-hyphens:($property);
+    -ms-hyphens: ($property);
+    hyphens: ($property);
+}
+@mixin column-count($property) {
+    -webkit-column-count: $property;
+    -moz-column-count: $property;
+    column-count: $property;
+}
+@mixin column-gap($property) {
+    -webkit-column-gap: $property;
+    -moz-column-gap: $property;
+    column-gap: $property;
+}
+@mixin column-rule($property) {
+    -webkit-column-rule: $property;
+    -moz-column-rule: $property;
+    column-rule: $property;
+}
+@mixin object-fit($property) {
+    -o-object-fit: $property;
+    object-fit: $property;
+}
+@mixin appearance($property) {
+    -webkit-appearance: $property;
+    -moz-appearance: $property;
+    appearance: $property;
+}

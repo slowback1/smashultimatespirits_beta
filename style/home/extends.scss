@@ -1,0 +1,34 @@
+//color schemes
+%primary-colors {
+    background-color: $bgc1;
+    color: $fc1;
+}
+%secondary-colors {
+    background-color: $bgc2;
+    color: $fc2;
+}
+%tertiary-colors {
+    background-color: $bgc3;
+    color: $fc3;
+}
+//basic flexbox settings
+%flex-row-wrap {
+    @include flex();
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+%flex-row-nowrap {
+    @include flex();
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+%flex-column-wrap {
+    @include flex();
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+%flex-column-nowrap {
+    @include flex();
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
