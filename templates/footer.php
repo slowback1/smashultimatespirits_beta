@@ -1,7 +1,7 @@
 <footer>
     <div class="fCol">
         <div class="fSCol">
-            &copy; <?php echo date('y'); ?> Andrew Wobeck
+            &copy; <?php echo date('Y'); ?> Andrew Wobeck
         </div>
         <div class="fSCol">
             Series icons from <a href='https://www.spriters-resource.com'>The Spriters Resource</a> <br />
@@ -15,7 +15,7 @@
         Characters: &copy; Nintendo / HAL Laboratory, Inc. / Pokémon. / Creatures Inc. / GAME FREAK inc. / SHIGESATO ITOI / APE inc. / INTELLIGENT SYSTEMS / Konami Digital Entertainment / <br />
         SEGA / CAPCOM CO., LTD. / BANDAI NAMCO Entertainment Inc. / MONOLITHSOFT / CAPCOM U.S.A., INC. / SQUARE ENIX CO., LTD. / ATLUS
     </div>
-    
+
 <!-- cookie popup -->
 
 <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />

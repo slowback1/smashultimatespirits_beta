@@ -1,4 +1,5 @@
-<!--
+
+<?php /*
         Objectives Here:
             Make the Search Results appear on this page (so it doesnt go to a different page when you search)
             Find a better home for the searchbar (maybe have it on the right column on desktop, anchored to the top on mobile/tablet?)
@@ -22,7 +23,7 @@
 
     NOTE: Some of these things go in templates/header.php and templates/footer.php
 
--->
+ */ ?>
 <?php include 'templates/header.php'; ?>
 
 <div id="main" class="main">
@@ -36,7 +37,7 @@
     //  call that function everytime the user scrolls near the bottom of the page, use a debouncer or setTimeout() so that the function doesn't get called a bunch of times when the user scrolls down!
 
     //func is a function, limit is a "cooldown period", in miliseconds
-    function throttle(func, limit) => {
+    function throttle(func, limit) {
         let lastFunc;
         let lastRan;
         return function() {

@@ -12,6 +12,6 @@
 
 <?php include 'templates/header.php'; ?>
 <head>
-    <title></title>
+    <title>Quiz Game | Smash Ultimate Spirits</title>
 </head>
 <?php include 'templates/footer.php'; ?>

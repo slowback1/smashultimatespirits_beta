@@ -8,13 +8,13 @@
 <body>
     <header>
         <div class="navImgContainer">
-            <img src="" alt="header image" />
+            <img src="img/headerBG.png" alt="header image" />
         </div>
         <h1>Super Smash Brothers Ultimate Spirits Directory</h1>
     </header>
     <nav>
         <div class="hamburgerContainer">
-            <a href="javascript:void(0)" onClick="openSideBar()"><img src="" alt="hamburger Button" id="hamburgerBtn" /></a>
+            <a href="javascript:void(0)" onClick="openSideBar()"><img src="img/hamburger.png" alt="hamburger Button" id="hamburgerBtn" /></a>
         </div>
         <div class="searchArea">
             <form>
@@ -68,12 +68,7 @@
             element.addEventListener('touchstart', evt => this.handleTouchStart(evt), false);
             element.addEventListener('touchend', evt => this.handleTouchEnd(evt), false);
 
-            on(evt, cb) {
-                this.evtMap[evt].push(cb);
-            }
-            off(evt, lcb) {
-                this.evtMap[evt].map(handler => handler(data));
-            }
+
             handleTouchStart(evt) {
                 this.xDown = evt.touches[0].clientX;
                 this.yDown = evt.touches[0].clientY;
