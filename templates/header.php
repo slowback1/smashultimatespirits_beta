@@ -19,7 +19,7 @@
         <div class="searchArea">
             <form>
                 <input type="text" onKeyup="findAutoResult()" id="searchValue" placeholder="Search" />
-                <input type="submit" onSubmit="searchResults()" name="Search" value="Search" />
+                <input type="submit" onSubmit="search('name', document.getElementById('searchValue').value)" name="Search" value="Search" />
             </form>
             <div class="searchResults" id="searchResults">
 
@@ -101,11 +101,87 @@
 
 
     function findAutoResult() {
-
+        let searchValue = document.getElementById('searchValue').value;
+        let url = 'api/spirits/autoResponse.php';
+        let options = {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            redirect: "follow",
+            referrer: "no-referrer",
+            body: JSON.stringify({
+                query: searchValue
+            }),
+        }
+        return fetch(url, options)
+            .then(response => response.json())
+            .then(jsonresponse => {
+                let spiritResults = jsonresponse.spirits;
+                let gameResults = jsonresponse.game;
+                let seriesResults = jsonresponse.series;
+                let spiritHtml = `<p class='searchResultHeader'>Spirits</p>`;
+                spiritResults.map(spirit => {
+                    let i = spirit.id;
+                    let n = spirit.name;
+                    spiritHtml = spiritHtml + `<a href='details.php?id=${i}'>${n}</a>`;
+                });
+                let gameHtml = `<p class='searchResultHeader'>Games</p>`;
+                gameResults.map(game => {
+                    let g = game.game;
+                    gameHtml = gameHtml + `<a href=javascript:void() onClick='search('game',${g})> ${g} </a>`;
+                });
+                let seriesHtml = `<p class='searchResultHeader'>Series</p>`;
+                seriesResults.map(series => {
+                    let s = series.series;
+                    seriesHtml = seriesHtml + `<a href=javascript:void() onClick='search('series', ${s})> ${s} </a>`;
+                });
+                document.getElementById('searchResults').innerHTML = spiritHtml + gameHtml + seriesHtml;
+            })
     }
 
 
-    function searchResults() {
-
+    function search(type, query) {
+        const url = './api/spirits/search.php';
+        let options = {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            redirect: "follow",
+            referrer: "no-referrer",
+            body: JSON.stringify({
+                searchType: type,
+                searchQuery: query
+            }),
+        }
+        return fetch(url, options)
+            .then(response => response.json())
+            .then(jsonresponse => {
+                document.getElementById('main').innerHTML = "";
+                jsonresponse.map(spirit => {
+                    let id = spirit.id;
+                    let name = spirit.name;
+                    let series = spirit.series;
+                    let rhtml = `
+                        <div class='spiritBox'>
+                            <div class='spiritImgContainer'>
+                                <img src='img/spiritImages/${id}.png' alt='${name}' />
+                            </div>
+                            <div class='lowerBox'>
+                                <img src='img/seriesImages/${series}.png' alt='${series}' />
+                                <p> ${id} ${name} </p>
+                            </div>
+                        </div>
+                    `;
+                    document.getElementById('main').innerHTML = document.getElementById('main').innerHTML + rhtml;
+                });
+            });
     }
 </script>

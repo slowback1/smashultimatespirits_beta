@@ -1,7 +1,8 @@
 <?php
     include '../../connection/connect.php';
-    $query = $_POST['query'];
-    $sql = "SELECT * FROM spirits WHERE name LIKE '$query' LIMIT 30";
+    $query = $_POST['searchQuery'];
+    $searchType = $_POST['searchType'];
+    $sql = "SELECT * FROM spirits WHERE $searchType LIKE '$query' LIMIT 30";
     $res_arr = array();
     $result = $conn->query($sql);
     if($result->num_rows > 0) {
