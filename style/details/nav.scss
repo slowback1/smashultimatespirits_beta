@@ -1,0 +1,13 @@
+nav {
+    width: 100vw;
+    height: 9.375rem;
+    @extend %secondary-colors;
+    @extend %flex-row-nowrap;
+    justify-content: space-around;
+    a {
+        border-right: 1px solid $fc3;
+        font-size: 1.125rem;
+        text-decoration: none;
+        color: inherit;
+    }
+}

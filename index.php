@@ -69,11 +69,11 @@
             cache: "no-cache",
             credentials: "same-origin",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/urlencoded"
             },
             redirect: "follow",
             referrer: "no-referrer",
-            body: JSON.stringify({limit: 60, offset: curAmnt}),
+            body: JSON.stringify({limit: '60', offset: `'${curAmnt}'`}),
         }
         return fetch(url, options)
             .then(response => response.json())

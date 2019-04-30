@@ -53,5 +53,79 @@ table {
 }
 
 /* end reset */
+.descBody, body {
+  background-color: #313a49;
+  color: #f7f8f9;
+}
+
+.descBody .descSection .secondary, nav {
+  background-color: #45494f;
+  color: #b2b9c4;
+}
+
+.descBody .descSection .secondary, .descBody, nav {
+  display: -webkit-box;
+  display: ms-flex-box;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+nav {
+  width: 100vw;
+  height: 9.375rem;
+  justify-content: space-around;
+}
+nav a {
+  border-right: 1px solid #c2c3c4;
+  font-size: 1.125rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.descBody .descSection {
+  flex-grow: 2;
+}
+.descBody .descSection .descImgContainer {
+  max-width: 50rem;
+  max-height: 50rem;
+  overflow: hidden;
+}
+.descBody .descSection .descImgContainer img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+}
+.descBody .descSection .descBox {
+  border: 2px solid;
+  border-radius: 10px;
+}
+.descBody .descSection .descBox p {
+  font-size: 1.25rem;
+}
+.descBody .descSection .primary {
+  border-color: #313a49;
+  padding: 10px 6px;
+}
+.descBody .descSection .secondary {
+  border-color: #45494f;
+  padding: 5px 3px;
+}
+.descBody .descSection .secondary img {
+  height: 1rem;
+  width: 1rem;
+}
+.descBody .descSection .secondary .descGameText {
+  font-size: 1.125rem;
+  font-weight: 125;
+}
 
 /*# sourceMappingURL=index.css.map */

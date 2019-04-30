@@ -31,7 +31,13 @@
     <title><?php echo $name; ?> | Details</title>
 </head>
 <body>
-    <!-- // more stuff goes here -->
+    
+    <nav>
+        <a href="javascript:void(0)" onClick="previousSpirit()"> \<-- previous spirit </a>
+        <a href="index.php?place=<?php echo $sid; ?>"> Return to Index </a>
+        <a href="javascript:void(0)" onClick="randomSpirit()"> Random Spirit </a>
+        <a href="javascript:void(0)" onClick="nextSpirit()"> next spirit --> </a>
+    </nav>
     <div class="descBody" id="descBody">
         <div class="descSection">
             <div class="descImgContainer">
@@ -50,11 +56,33 @@
         </div>
     </div>
 </body>
+<?php echo "<script>let initId = $sid; </script>";?>
 <script>
-    //this function needs to be updated whenever there is a new total amount of spirits
+    let currentSpirit = initId;
+    let max = 1320;
+    function previousSpirit() {
+        if(currentSpirit == 1) {
+            currentSpirit = max;
+        } else {
+            currentSpirit -= 1;
+        }
+        return getSpirit(currentSpirit);
+    }
+    function nextSpirit() {
+        if(currentSpirit == max) {
+            currentSpirit = 1;
+        } else {
+            currentSpirit += 1;
+        }
+        return getSpirit(currentSpirit);
+    }
+    function randomSpirit() {
+        currentSpirit = Math.floor(Math.random() * max);
+        return getSpirit(currentSpirit);
+    }
     function getSpirit(id) {
         if(id == 0) {
-            spiritID = Math.floor(Math.random() * 1320);
+            spiritID = Math.floor(Math.random() * max);
         } else {
             spiritID = id;
         }
@@ -100,5 +128,40 @@
                 document.title = `${name} | Details`;
             })
     }
+
+    function findAutoResult() {
+        let searchValue = document.getElementById('searchValue').value;
+        let url = 'api/spirits/autoResponse.php';
+        let options = {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/urlencoded",
+            },
+            redirect: "follow",
+            referrer: "no-referrer",
+            body: JSON.stringify({
+                query: searchValue
+            }),
+        }
+        return fetch(url, options)
+            .then(response => response.json())
+            .then(jsonresponse => {
+                let spiritResults = jsonresponse.spirits;
+                let spiritHtml = `<p class='searchResultHeader'>Spirits</p>`;
+                spiritResults.map(spirit => {
+                    let i = spirit.id;
+                    let n = spirit.name;
+                    spiritHtml = spiritHmtl + `<a href=javascript:void(0) onClick='getSpirit(${i})>${n}</a>`;
+                });
+                document.getElementById('searchResults').innerHTML = spiritHtml;
+            });
+    }
+    function closeSearchResults() {
+        document.getElementById('searchResults').innerHTML = "";
+    }
+    window.addEventListener('click', closeSearchResults, false);
 </script>
 </html>

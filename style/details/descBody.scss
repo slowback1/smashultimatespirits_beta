@@ -1,0 +1,44 @@
+.descBody {
+    @extend %primary-colors;
+    @extend %flex-row-nowrap;
+    .descSection {
+        flex-grow: 2;
+        .descImgContainer {
+            max-width: 50rem;
+            max-height: 50rem;
+            overflow: hidden;
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                width: auto;
+                height: auto;
+            }
+        }
+        .descBox {
+            border: 2px solid;
+            border-radius: 10px;
+            p {
+                font-size: 1.25rem;
+            }
+        }
+        .primary {
+            border-color: $bgc1;
+            padding: 10px 6px;
+        }
+        .secondary {
+            @extend %secondary-colors;
+            @extend %flex-row-nowrap;
+            border-color: $bgc2;
+            padding: 5px 3px;
+            img {
+                height: 1rem;
+                width: 1rem;
+            }
+            .descGameText {
+                font-size: 1.125rem;
+                font-weight: 125;
+            }
+        
+        }
+    }
+}

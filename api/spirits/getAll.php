@@ -1,6 +1,6 @@
-<?php 
-    include '../../connection/coonect.php';
-    
+<?php
+    include '../../connection/connect.php';
+
     $sql = "SELECT * FROM spirits";
     $res_arr = array();
     $result = $conn->query($sql);
@@ -25,5 +25,5 @@
         http_response_code(404);
         echo json_encode(array('message' => 'No Spirit Found'));
     }
-    
+
 ?>

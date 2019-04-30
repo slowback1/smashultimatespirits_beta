@@ -1,9 +1,10 @@
-<?php 
-    include '../../connection/coonect.php';
+<?php
+    include '../../connection/connect.php';
+
     $limit = $_POST['limit'];
     $offset = $_POST['offset'];
-    
-    $sql = "SELECT * FROM spirits OFFSET $offset LIMIT $limit";
+
+    $sql = "SELECT * FROM spirits OFFSET '$offset' LIMIT '$limit'";
     $res_arr = array();
     $result = $conn->query($sql);
     if($result->num_rows > 0) {
@@ -25,7 +26,9 @@
         echo json_encode($res_arr);
     } else {
         http_response_code(404);
+        echo $limit;
+        echo $offset;
         echo json_encode(array('message' => 'No Spirit Found'));
     }
-    
+
 ?>
