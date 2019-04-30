@@ -105,7 +105,7 @@
             loadMore(amount);
         }
     }
-    window.addEventListener('scroll', throttle(checkIfAtBottom(), 1500), false);
+    window.addEventListener('scroll', checkIfAtBottom(), false);
 
 </script>
 
