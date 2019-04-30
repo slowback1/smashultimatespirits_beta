@@ -7,13 +7,15 @@ header {
     .navImgContainer {
         width: 100%;
         height: 200px;
-        background: url('img/headerBG.png') no-repeat fixed center;
+        background: url('../img/headerBG.png') no-repeat fixed center;
         background-color: $bgc1;
     }
     h1 {
         position: absolute;
         top: 100px;
-        left: auto;
+        left: 50%;
+        font-size: 2.5rem;
+        background-color: rgba(49, 58, 73, 0.5);
     }
 }
 nav {

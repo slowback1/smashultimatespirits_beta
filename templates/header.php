@@ -52,7 +52,7 @@
         }
     }
     document.getElementById('hamburgerBtn').addEventListener('click', toggleSidebar(), false);
-
+/*
     class SwipeEventDispatcher {
         constructor(element, options = {}) {
             this.evtMap = {
@@ -93,6 +93,7 @@
     const dispatcher = new SwipeEventDispatcher(document.getElementById('main')); //needs a better home than the entire main div  Possible solution: make an invisible div that sits on the left half of the screen that anchors this swipe handler
     dispatcher.on('SWIPE_RIGHT', () => {if(!isOpen){toggleSideBar()}});
     dispatcher.on('SWIPE_LEFT', () => {if(isOpen){toggleSideBar()}});
+    */
     let isActive = false;
     function checkNav() {
         let target = document.getElementById('nav');
