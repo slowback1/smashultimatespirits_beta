@@ -6,20 +6,20 @@
     <link rel="stylesheet" href="style/home/index.css">
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="navImgContainer">
-            <img src="img/headerBG.png" alt="header image" />
+
         </div>
         <h1>Super Smash Brothers Ultimate Spirits Directory</h1>
     </header>
-    <nav>
+    <nav id="nav">
         <div class="hamburgerContainer">
             <a href="javascript:void(0)" onClick="openSideBar()"><img src="img/hamburger.png" alt="hamburger Button" id="hamburgerBtn" /></a>
         </div>
         <div class="searchArea">
-            <form>
+            <form onSubmit="search('name', document.getElementById('searchValue').value)">
                 <input type="text" onKeyup="findAutoResult()" id="searchValue" placeholder="Search" />
-                <input type="submit" onSubmit="search('name', document.getElementById('searchValue').value)" name="Search" value="Search" />
+                <input type="submit"  name="Search" value="Search" />
             </form>
             <div class="searchResults" id="searchResults">
 
@@ -69,11 +69,11 @@
             element.addEventListener('touchend', evt => this.handleTouchEnd(evt), false);
 
 
-            handleTouchStart(evt) {
+            handleTouchStart(evt) => {
                 this.xDown = evt.touches[0].clientX;
                 this.yDown = evt.touches[0].clientY;
             }
-            handleTouchEnd(evt) {
+            handleTouchEnd(evt) => {
                 const deltaX = evt.changedTouches[0].clientX - this.xDown;
                 const deltaY = evt.changedTouches[0].clientY - this.yDown;
                 const distMoved = Math.abs(Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY);
@@ -93,7 +93,18 @@
     const dispatcher = new SwipeEventDispatcher(document.getElementById('main')); //needs a better home than the entire main div  Possible solution: make an invisible div that sits on the left half of the screen that anchors this swipe handler
     dispatcher.on('SWIPE_RIGHT', () => {if(!isOpen){toggleSideBar()}});
     dispatcher.on('SWIPE_LEFT', () => {if(isOpen){toggleSideBar()}});
-
+    let isActive = false;
+    function checkNav() {
+        let target = document.getElementById('nav');
+        if(window.scrollY > (target.offsetTop + target.offsetHeight) && !isActive) {
+            target.classList.add('gluedToTop');
+            isActive = true;
+        } else if (window.scrollY > document.getElementById('header').offsetTop + document.getElementById('header').offsetHeight) {
+            target.classList.remove('gluedToTop');
+            isActive = false;
+        }
+    }
+    window.addEventListener('scroll', checkNav(), false);
 
     function findAutoResult() {
         let searchValue = document.getElementById('searchValue').value;
