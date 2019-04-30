@@ -37,7 +37,7 @@
     //  call that function everytime the user scrolls near the bottom of the page, use a debouncer or setTimeout() so that the function doesn't get called a bunch of times when the user scrolls down!
 
     //func is a function, limit is a "cooldown period", in miliseconds
-    function throttle(func, limit) {
+    /*function throttle(func, limit) {
         let lastFunc;
         let lastRan;
         return function() {
@@ -57,6 +57,7 @@
             }
         }
     }
+    */
     let amount = 0;
     //count is an integer, which represents how many times loadMore has been called since page load
     function loadMore(count) {
@@ -95,8 +96,8 @@
                     document.getElementById('main').innerHTML = document.getElementById('main').innerHTML + responsehtmlcode;
                     amount += 1;
                 })
-            })
-            .catch(error => console.error(error));
+            });
+            //.catch(error => console.error(error));
     }
     loadMore(0);
     function checkIfAtBottom() {
