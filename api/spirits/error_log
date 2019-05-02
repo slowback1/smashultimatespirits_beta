@@ -1,0 +1,8 @@
+[30-Apr-2019 10:53:40 America/New_York] PHP Notice:  Trying to get property 'num_rows' of non-object in /home/smasoeqg/beta.smashultimatespirits.com/slowback1/api/spirits/getSome.php on line 10
+[30-Apr-2019 10:54:11 America/New_York] PHP Notice:  Undefined index: limit in /home/smasoeqg/beta.smashultimatespirits.com/slowback1/api/spirits/getSome.php on line 4
+[30-Apr-2019 10:54:11 America/New_York] PHP Notice:  Undefined index: offset in /home/smasoeqg/beta.smashultimatespirits.com/slowback1/api/spirits/getSome.php on line 5
+[30-Apr-2019 10:54:11 America/New_York] PHP Notice:  Trying to get property 'num_rows' of non-object in /home/smasoeqg/beta.smashultimatespirits.com/slowback1/api/spirits/getSome.php on line 10
+[30-Apr-2019 10:54:11 America/New_York] PHP Notice:  Undefined index: limit in /home/smasoeqg/beta.smashultimatespirits.com/slowback1/api/spirits/getSome.php on line 4
+[30-Apr-2019 10:54:11 America/New_York] PHP Notice:  Undefined index: offset in /home/smasoeqg/beta.smashultimatespirits.com/slowback1/api/spirits/getSome.php on line 5
+[30-Apr-2019 10:54:11 America/New_York] PHP Notice:  Trying to get property 'num_rows' of non-object in /home/smasoeqg/beta.smashultimatespirits.com/slowback1/api/spirits/getSome.php on line 10
+[30-Apr-2019 12:14:54 America/New_York] PHP Notice:  Trying to get property 'num_rows' of non-object in /home/smasoeqg/beta.smashultimatespirits.com/slowback1/api/spirits/getSome.php on line 10

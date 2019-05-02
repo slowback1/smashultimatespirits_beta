@@ -14,7 +14,7 @@
     </header>
     <nav id="nav">
         <div class="hamburgerContainer">
-            <a href="javascript:void(0)" onClick="openSideBar()"><img src="img/hamburger.png" alt="hamburger Button" id="hamburgerBtn" /></a>
+            <a href="javascript:void(0)" onClick="toggleSidebar()"><img src="img/hamburger.png" alt="hamburger Button" id="hamburgerBtn" /></a>
         </div>
         <div class="searchArea">
             <form onSubmit="search('name', document.getElementById('searchValue').value)">
@@ -109,9 +109,9 @@
 
     function findAutoResult() {
         let searchValue = document.getElementById('searchValue').value;
-        let url = 'api/spirits/autoResponse.php';
+        let url = `api/spirits/autoResponse.php?query=${searchValue}`;
         let options = {
-            method: "POST",
+            method: "GET",
             mode: "cors",
             cache: "no-cache",
             credentials: "same-origin",
@@ -120,9 +120,7 @@
             },
             redirect: "follow",
             referrer: "no-referrer",
-            body: JSON.stringify({
-                query: searchValue
-            }),
+            
         }
         return fetch(url, options)
             .then(response => response.json())

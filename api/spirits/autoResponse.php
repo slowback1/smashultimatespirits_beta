@@ -1,17 +1,17 @@
 <?php
     include '../../connection/connect.php';
-    $query = $_POST['query'];
-    $sqlS = "SELECT * FROM spirits WHERE name LIKE '$query' LIMIT 5";
+    $query = $_GET['query'];
+    $sqlS = "SELECT name, id, game, series FROM spirits WHERE name LIKE '%$query%' ORDER BY CASE WHEN name LIKE '$query%' THEN 1 ELSE id END LIMIT 5";
     $res_arr = array();
     $res_arr['spirits'] = array();
     $result = $conn->query($sqlS);
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
         $item = array(
-            $id = $row['id'],
-            $name = $row['name'],
-            $game = $row['game'],
-            $series = $row['series'],
+            'id' => $row['id'],
+            'name' => $row['name'],
+            'game' => $row['game'],
+            'series' => $row['series'],
         );
         array_push($res_arr['spirits'], $item);
     }

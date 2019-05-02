@@ -58,13 +58,14 @@
         }
     }
     */
-    let amount = 0;
+    let numOfSpirits = 0;
     //count is an integer, which represents how many times loadMore has been called since page load
     function loadMore(count) {
-        const url = './api/spirits/getSome.php';
         let curAmnt = count * 60;
+        const url = `./api/spirits/getSome.php?limit=60&offset=${curAmnt}`;
+        
         let options = {
-            method: "POST",
+            method: "GET",
             mode: "cors",
             cache: "no-cache",
             credentials: "same-origin",
@@ -73,7 +74,7 @@
             },
             redirect: "follow",
             referrer: "no-referrer",
-            body: JSON.stringify({limit: '60', offset: `'${curAmnt}'`}),
+
         }
         return fetch(url, options)
             .then(response => response.json())
@@ -84,28 +85,33 @@
                     let series = spirit.series;
                     let responsehtmlcode = `
                     <div class='spiritBox'>
+                    <a href="details.php?id=${sid}">
                         <div class='spiritImgContainer'>
                             <img src='img/spiritImages/${sid}.png' alt='${name}' />
                         </div>
                         <div class='lowerBox'>
-                            <img src='img/seriesImages/${series}.png' alt='${series}' />
+                            <img src='img/seriesIcons/${series}.png' alt='${series}' />
                             <p> ${sid} ${name} </p>
                         </div>
+                        </a>
                     </div>
                     `;
                     document.getElementById('main').innerHTML = document.getElementById('main').innerHTML + responsehtmlcode;
-                    amount += 1;
                 })
-            });
-            //.catch(error => console.error(error));
+                numOfSpirits += 1;
+            })
+            .catch(error => console.error(error));
     }
     loadMore(0);
     function checkIfAtBottom() {
         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 250) {
-            loadMore(amount);
+            loadMore(numOfSpirits);
         }
-    }
-    window.addEventListener('scroll', checkIfAtBottom(), false);
+    }  
+    setInterval(function() {
+        checkIfAtBottom();
+    }, 1500);
+    //window.addEventListener('scroll', checkIfAtBottom(), false);
 
 </script>
 

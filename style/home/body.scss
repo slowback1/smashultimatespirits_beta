@@ -1,5 +1,11 @@
+body {
+    background-color: $bgc1;
+    overflow-x: hidden;
+}
 .main {
+    @extend %flex-row-wrap;
     @extend %primary-colors;
-    width: 100vw;
+    width: 80vw;
+    margin: 10px auto;
     min-height: 800px;
 }

@@ -1,18 +1,18 @@
 <?php
     include '../../connection/connect.php';
-    $id = $_POST['id'];
-    $sql = "SELECT * FROM spirits WHERE id='$id' LIMIT 1";
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM spirits WHERE id=$id LIMIT 1";
     $res_arr = array();
     $res_arr['records'] = array();
     $result = $conn->query($sql);
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $item = array(
-                    $id => $row['id'],
-                    $name = $row['name'],
-                    $game = $row['game'],
-                    $series = $row['series'],
-                    $description = $row['description'],
+                    'id' => $row['id'],
+                    'name' => $row['name'],
+                    'game' => $row['game'],
+                    'series' => $row['series'],
+                    'description' => $row['description'],
                     /*
                     Won't be implemented until we add the author to every spirit in the DB, and make sure no one accidentally used their real name
                     $author = $row['author']

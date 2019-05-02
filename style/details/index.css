@@ -58,12 +58,12 @@ table {
   color: #f7f8f9;
 }
 
-.descBody .descSection .secondary, nav {
+.descBody .descSection .descBox {
   background-color: #45494f;
   color: #b2b9c4;
 }
 
-.descBody .descSection .secondary, .descBody, nav {
+nav, .descBody .descSection .secondary, .descBody {
   display: -webkit-box;
   display: ms-flex-box;
   display: -webkit-flex;
@@ -72,60 +72,77 @@ table {
   flex-wrap: nowrap;
 }
 
+.descBody .descSection .descImgContainer, .descBody .descSection, body {
+  display: -webkit-box;
+  display: ms-flex-box;
+  display: -webkit-flex;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+}
+
 body {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
-nav {
-  width: 100vw;
-  height: 9.375rem;
-  justify-content: space-around;
-}
-nav a {
-  border-right: 1px solid #c2c3c4;
-  font-size: 1.125rem;
-  text-decoration: none;
-  color: inherit;
-}
-
-.descBody .descSection {
+.descBody {
+  width: 60vw;
+  min-height: 60vh;
+  padding: 2rem;
+  align-self: flex-end;
   flex-grow: 2;
+  justify-content: space-between;
+}
+.descBody .descSection {
+  justify-content: space-around;
 }
 .descBody .descSection .descImgContainer {
   max-width: 50rem;
   max-height: 50rem;
+  min-width: 20rem;
+  min-height: 20rem;
+  width: 100%;
+  height: 100%;
   overflow: hidden;
 }
 .descBody .descSection .descImgContainer img {
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
+  width: 100%;
   height: auto;
+  align-self: center;
+  margin: auto;
+}
+.descBody .descSection h2 {
+  font-size: 3rem;
+  -webkit-transform: rotate(20deg);
+  -ms-transform: rotate(20deg);
+  transform: rotate(20deg);
+  color: #c2c3c4;
+  margin-bottom: 2rem;
 }
 .descBody .descSection .descBox {
-  border: 2px solid;
-  border-radius: 10px;
-}
-.descBody .descSection .descBox p {
-  font-size: 1.25rem;
+  width: 80%;
+  border: 0.125rem solid;
+  padding: 0.75rem 1rem;
 }
 .descBody .descSection .primary {
-  border-color: #313a49;
-  padding: 10px 6px;
+  border-color: #f7f8f9;
 }
 .descBody .descSection .secondary {
-  border-color: #45494f;
-  padding: 5px 3px;
+  border-color: #c2c3c4;
+  margin-top: 0.5rem;
+  padding: 0.375rem 0.5rem;
 }
 .descBody .descSection .secondary img {
-  height: 1rem;
-  width: 1rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }
-.descBody .descSection .secondary .descGameText {
-  font-size: 1.125rem;
-  font-weight: 125;
+
+nav {
+  width: 100vw;
+  height: 100px;
+  justify-content: space-around;
 }
 
 /*# sourceMappingURL=index.css.map */
