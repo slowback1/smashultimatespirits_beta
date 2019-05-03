@@ -1,5 +1,4 @@
 # don't track these folders
 node_modules/
 img/
-connection/
 connection/connect.php

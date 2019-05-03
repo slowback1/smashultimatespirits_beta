@@ -1,6 +1,7 @@
 body {
     background-color: $bgc1;
     overflow-x: hidden;
+    @extend %flex-column-nowrap;
 }
 .main {
     @extend %flex-row-wrap;
@@ -8,4 +9,8 @@ body {
     width: 80vw;
     margin: 10px auto;
     min-height: 800px;
+}
+
+#sidebar {
+    display: none;
 }

@@ -7,9 +7,7 @@
 </head>
 <body>
     <header id="header">
-        <div class="navImgContainer">
-
-        </div>
+        
         <h1>Super Smash Brothers Ultimate Spirits Directory</h1>
     </header>
     <nav id="nav">
@@ -25,9 +23,13 @@
 
             </div>
         </div>
+        <div class="invisible">
+
+        </div>
     </nav>
     <div class="sidebar" id="sidebar">
         <!-- things need to go here -->
+        <p>Test</p>
     </div>
 <script>
     //functions that go here:
@@ -44,69 +46,66 @@
     let isOpen = false;
     function toggleSidebar() {
         if(isOpen) {
-            document.getElementById('sidebar').style.display = "block";
+            document.getElementById('sidebar').style.display = "none";
             isOpen = false;
         } else {
-            document.getElementById('sidebar').style.display = "hidden";
+            document.getElementById('sidebar').style.display = "block";
             isOpen = true;
         }
     }
     document.getElementById('hamburgerBtn').addEventListener('click', toggleSidebar(), false);
-/*
-    class SwipeEventDispatcher {
-        constructor(element, options = {}) {
-            this.evtMap = {
-                SWIPE_LEFT: [],
-                SWIPE_UP: [],
-                SWIPE_DOWN: [],
-                SWIPE_RIGHT: []
-            };
-            this.xDown = null;
-            this.yDown = null;
-            this.options = Object.assign({triggerPercent: 0.3}, options);
+    document.addEventListener('touchstart', handleTouchStart, false);
+    document.addEventListener('touchmove', handleTouchMove, false);
 
-            element.addEventListener('touchstart', evt => this.handleTouchStart(evt), false);
-            element.addEventListener('touchend', evt => this.handleTouchEnd(evt), false);
+    var xDown = null;
+    var yDown = null;
 
+    function getTouches(e) {
+        return e.touches || e.originalEvent.touches;
+    }
+    function handleTouchStart(e) {
+        const firstTouch = getTouches(e)[0];
+        xDown = firstTouch.clientX;
+        yDown = firstTouch.clientY;
+    };
+    function handleTouchMove(e) {
+        if(!xDown || !yDown) {
+            return;
+        }
+        var xUp = e.touches[0].clientX;
+        var yUp = e.touches[0].clientY;
 
-            handleTouchStart(evt) => {
-                this.xDown = evt.touches[0].clientX;
-                this.yDown = evt.touches[0].clientY;
-            }
-            handleTouchEnd(evt) => {
-                const deltaX = evt.changedTouches[0].clientX - this.xDown;
-                const deltaY = evt.changedTouches[0].clientY - this.yDown;
-                const distMoved = Math.abs(Math.abs(deltaX) > Math.abs(deltaY) ? deltaX : deltaY);
-                const activePct = distMoved / this.element.offsetWidth;
+        var xDiff = xDown - xUp;
+        var yDiff = yDown - yUp;
 
-                if(activePct > this.options.triggerPercent) {
-                    if(Math.abs(deltaX) > Math.abs(deltaY)) {
-                        deltaX < 0 ? this.trigger('SWIPE_LEFT') : this.trigger('SWIPE_RIGHT');
-                    } else {
-                        deltaY < 0 ? this.trigger('SWIPE_DOWN') : this.trigger('SWIPE_UP');
-                    }
+        if(Math.abs(xDiff) > Math.abs(yDiff)) {
+            if(xDiff > 0) {
+                if(isOpen) {
+                    toggleSidebar();
+                }
+            } else {
+                if(!isOpen) {
+                    toggleSidebar();
                 }
             }
         }
+        xDown = null;
+        yDown = null;
     }
 
-    const dispatcher = new SwipeEventDispatcher(document.getElementById('main')); //needs a better home than the entire main div  Possible solution: make an invisible div that sits on the left half of the screen that anchors this swipe handler
-    dispatcher.on('SWIPE_RIGHT', () => {if(!isOpen){toggleSideBar()}});
-    dispatcher.on('SWIPE_LEFT', () => {if(isOpen){toggleSideBar()}});
-    */
+
     let isActive = false;
     function checkNav() {
         let target = document.getElementById('nav');
-        if(window.scrollY > (target.offsetTop + target.offsetHeight) && !isActive) {
+        if(window.scrollY > 200 && !isActive) {
             target.classList.add('gluedToTop');
             isActive = true;
-        } else if (window.scrollY > document.getElementById('header').offsetTop + document.getElementById('header').offsetHeight) {
+        } else if(window.scrollY <= 200 ** isActive) {
             target.classList.remove('gluedToTop');
             isActive = false;
         }
     }
-    window.addEventListener('scroll', checkNav(), false);
-
+    document.addEventListener("scroll", function(){checkNav()});
     function findAutoResult() {
         let searchValue = document.getElementById('searchValue').value;
         let url = `api/spirits/autoResponse.php?query=${searchValue}`;

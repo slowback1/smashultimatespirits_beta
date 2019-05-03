@@ -1,76 +1,50 @@
 header {
     @extend %primary-colors;
     width: 100vw;
-    margin: 0;
-    padding: 0;
-    height: 200px;
-    .navImgContainer {
-        width: 100%;
-        height: 200px;
-        background: url('../img/headerBG.png') no-repeat fixed center;
-        background-color: $bgc1;
-    }
+    padding: 1rem 0;
     h1 {
-        position: absolute;
-        top: 100px;
-        left: 50%;
-        font-size: 2.5rem;
-        background-color: rgba(49, 58, 73, 0.5);
+        font-size: 2rem;
+        text-align: center;
+        margin-top: 0;
     }
 }
 nav {
-    width: 100%;
-    height: 2rem;
-    margin-top: 1rem;
-    @extend %secondary-colors;
+    width: 100vw;
+    height: 4rem;
     @extend %flex-row-nowrap;
+    @extend %secondary-colors;
+    justify-content: space-between;
     .hamburgerContainer {
-        margin-top: .5rem;
-        margin-left: .5rem;
-        align-self: flex-start;
-        width: 1.5rem;
-        height: 1.5rem;
+        width: 4rem;
+        height: 4rem;
         a {
-            height: 100%;
-            width: 100%;
-            margin: 0;
-            padding: 0;
+            width: 4rem;
+            height: 4rem;
             img {
-                height: 100%;
-                width: 100%;
-                margin: 0;
-                padding: 0;
+                width: 4rem;
+                height: 4rem;
             }
         }
     }
     .searchArea {
-        align-self: center;
-        width: 60%;
-        height: 80%;
-        margin: 10% 0;
+        @extend %flex-column-nowrap;
+
+
         form {
+            @extend %flex-row-nowrap;
             input[type="text"] {
-                width: 70%;
-                height: 100%;
                 border-radius: 10px;
-                border-color: $fc2;
             }
             input[type="submit"] {
-                width: 25%;
-                margin-left: 5%;
-                height: 100%;
                 border-radius: 10px;
-                border-color: $fc2;
-                transition: 0.5s;
             }
-            input[type="submit"]:hover {
-                @extend %tertiary-colors;
-                border-color: $fc3;
-            }
+        }
+        .searchResults {
+            @extend %tertiary-colors;
         }
     }
 }
 .gluedToTop {
-    position: static;
+    position: fixed;
     top: 0;
 }
