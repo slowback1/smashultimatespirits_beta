@@ -17,7 +17,8 @@
                     $author = $row['author']
                     */
                 );
-            array_push($res_arr['records'], $item);
+
+            array_push($res_arr, $item);
         }
         http_response_code(200);
         echo json_encode($res_arr);
