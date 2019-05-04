@@ -29,20 +29,85 @@
     </nav>
     <div class="sidebar" id="sidebar">
         <!-- things need to go here -->
-        <p>Test</p>
+        <a class="closeBtn" href="javascript:void(0)" onClick="toggleSidebar()">&#10005;</a>
+        <a class="sidebarLink" href="details.php?id=0">Random Spirit</a>
+        <a class="sidebarLink" href="quiz.php">Quiz Game</a>
+        <a class="sidebarLink" href="credits.php">Site Credits</a>
+        <?php
+            $isLoggedIn = false;
+            if(isset($_COOKIE['adminToken'])) {
+                $sql = "SELECT username FROM users WHERE username='".$_COOKIE['adminToken']."'";
+                $result = $conn->query($sql);
+                if($result->num_rows > 0) {
+                    while($row = $result->fetch_assoc()) {
+                        if($row['username'] == $_COOKIE['adminToken']) {
+                            $isLoggedIn = true;
+                        }
+                    }
+                }
+            }
+            if($isLoggedIn) {
+                echo "
+                    <p class='sidebarHeader'>Super Secret Admin Area</p>
+                    <a class='sidebarLink' href='admin/addSpirit.php'>Add Spirit</a>
+                    <a class='sidebarLink' href='admin/editSpirit.php'>Edit Spirit</a>
+                    <a class='sidebarLink' href='admin/deleteSpirit.php'>Delete Spirit</a>
+                    <a class='sidebarLink' href='admin/addQuestion.php'>Add Question</a>
+                    <a class='sidebarLink' href='admin/editQuestion.php'>Edit Question</a>
+                    <a class='sidebarLink' href='admin/deleteQuestion.php'>Delete Question</a>
+                    <div id='remainingSpirits'>
+
+                    </div>
+                    <div class='loginArea'>
+                        <a href='admin/changePassword.php'> Change Password </a>
+                        <a href='actions/logout.php'> Log Out </a>
+                    </div>
+                ";
+            } else {
+                echo "
+                    <div id='remainingSpirits'>
+
+                    </div>
+                    <div class='loginArea'>
+                        <a href='admin/login.php'> Admin Login </a>
+                    </div>
+                ";
+            }
+        ?>
+        
     </div>
 <script>
-    //functions that go here:
-    // findAutoResult():
-    //    takes value from #searchValue and sends it the autoResult api, which returns a JSON object containing search results, seperated by spirit, game, and series
-    //    use the resulting JSON object to build html that goes into the #searchResults div
-    //    also have an event listener that when the user clicks anywhere outside of the searchResults div, the searchResults returns to being an empty div
-    // searchResults():
-    //  takes value from #searchValue and sends it to the search api, which returns a JSON object containing search results
-    //  use these results to REPLACE the contents in the #main div with html built from the JSON object
-    //  also append a button to go back to the regular "main" screen (IE, how it is when the page first loads).
-    //
+    const maxSpirits = 1320;
+    function getRemainingSpirits() {
+        let url = '../api/spirits/count.php';
+        let options = {
+            method: "GET",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/urlencoded"
+            },
+            redirect: "follow",
+            referrer: "no-referrer",
 
+        }
+        return fetch(url, options)
+            .then(response => response.json())
+            .then(jsonresponse => {
+                if(jsonresponse.records.count >= maxSpirits) {
+                    let responsehtmlcode = `
+                        <p>All ${maxSpirits} spirits are accounted for!</p>
+                    `;
+                } else {
+                    let responsehtmlcode = `
+                        <p>${jsonresponse.records.count} Spirits accounted for.</p>
+                        <p>${maxSpirits - jsonresponse.records.count} Spirits Remain.</p>
+                    `;
+                }
+                document.getElementById('remainingSpirits').innerHTML = responsehtmlcode;
+            })
+    }
     let isOpen = false;
     function toggleSidebar() {
         if(isOpen) {

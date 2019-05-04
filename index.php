@@ -108,10 +108,8 @@
             loadMore(numOfSpirits);
         }
     }  
-    setInterval(function() {
-        checkIfAtBottom();
-    }, 1500);
-    //window.addEventListener('scroll', checkIfAtBottom(), false);
+    
+    document.addEventListener('scroll', function(){setTimeout(checkIfAtBottom(), 1500)}, false);
 
 </script>
 
