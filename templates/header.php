@@ -53,7 +53,7 @@
             isOpen = true;
         }
     }
-    document.getElementById('hamburgerBtn').addEventListener('click', toggleSidebar(), false);
+    document.getElementById('hamburgerBtn').addEventListener('onclick', function(){toggleSidebar()}, false);
     document.addEventListener('touchstart', handleTouchStart, false);
     document.addEventListener('touchmove', handleTouchMove, false);
 
@@ -94,18 +94,18 @@
     }
 
 
-    let isActive = false;
+    let navIsTop = false;
     function checkNav() {
         let target = document.getElementById('nav');
-        if(window.scrollY > 200 && !isActive) {
+        if(window.scrollY > 200 && !navIsTop) {
             target.classList.add('gluedToTop');
-            isActive = true;
-        } else if(window.scrollY <= 200 ** isActive) {
+            navIsTop = true;
+        } else if (window.scrollY <= 200 && navIsTop) {
             target.classList.remove('gluedToTop');
-            isActive = false;
+            navIsTop = false;
         }
     }
-    document.addEventListener("scroll", function(){checkNav()});
+    document.addEventListener('scroll', function(){checkNav()});
     function findAutoResult() {
         let searchValue = document.getElementById('searchValue').value;
         let url = `api/spirits/autoResponse.php?query=${searchValue}`;
