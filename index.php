@@ -58,7 +58,7 @@
         }
     }
     */
-    let numOfSpirits = 0;
+    
     //count is an integer, which represents how many times loadMore has been called since page load
     function loadMore(count) {
         let curAmnt = count * 60;
