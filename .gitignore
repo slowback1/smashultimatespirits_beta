@@ -2,3 +2,4 @@
 node_modules/
 img/
 connection/connect.php
+admin/api/users/config.php

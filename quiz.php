@@ -14,4 +14,17 @@
 <head>
     <title>Quiz Game | Smash Ultimate Spirits</title>
 </head>
+<div id="main">
+    <div class="quizBody">
+        <div id="quizQuestion">Quiz Question Goes Here</div>
+        <div id="answers">
+        </div>
+    </div>
+</div>
+<script>
+    let banList = 
+    function loadQuestion() {
+
+    }
+</script>
 <?php include 'templates/footer.php'; ?>

@@ -58,7 +58,27 @@
         }
     }
     */
-    
+   const throttle = (func, limit) => {
+       let lastFunc;
+       let lastRan;
+       return function() {
+           const context = this;
+           const args = arguments;
+           if(!lastRan) {
+               func.apply(context,args);
+               lastRan = Date.now();
+           } else {
+               clearTimeout(lastFunc);
+               lastFunc = setTimeout(function() {
+                   if((Date.now() - lastRan) >= limit) {
+                        func.apply(context, args);
+                        lastRan = Date.now();        
+                   }
+               }, limit - (Date.now() - lastRan));
+           }
+       }
+   }
+    let numOfSpirits = 0;
     //count is an integer, which represents how many times loadMore has been called since page load
     function loadMore(count) {
         let curAmnt = count * 60;
@@ -98,14 +118,17 @@
                     `;
                     document.getElementById('main').innerHTML = document.getElementById('main').innerHTML + responsehtmlcode;
                 })
-                numOfSpirits += 1;
             })
             .catch(error => console.error(error));
     }
-    loadMore(0);
+    function callLoadMore(num) {
+        numOfSpirits++;
+        return loadMore(num)
+    }
+    throttle(callLoadMore(0), 2500);
     function checkIfAtBottom() {
         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 250) {
-            loadMore(numOfSpirits);
+            throttle(callLoadMore(numOfSpirits), 2500);
         }
     }  
     
