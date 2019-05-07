@@ -22,9 +22,92 @@
     </div>
 </div>
 <script>
-    let banList = 
-    function loadQuestion() {
+    let banList = sessionStorage.getItem('banList');
 
+    function loadQuestion() {
+        let url = 'api/quiz/getOne.php';
+        let options = {
+            method: "POST",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: {
+                "banList": banList
+            },
+
+        };
+        return fetch(url, options) 
+            .then(res => res.json())
+            .then(response => {
+                //insert quiz html into the appropriate places
+                //question id should be stored in session storage
+            })
+            .catch(error => console.error(error));
+    };
+    window.onLoad(function(){loadQuestion()});
+    function processQuestion() {
+        let qid = sessionStorage.getItem('qid');
+        let aid = sessionStorage.getItem('aid');
+        sessionStorage.setItem('banList', sessionStorage.getItem('banList').push(qid));
+        let url = 'api/quiz/process.php';
+        let options = {
+            method: "POST",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: {
+                "qid": qid,
+                "aid": aid
+            }
+        };
+        return fetch(url, options)
+            .then(res => res.json())
+            .then(response => {
+                if(response.isRight) {
+                    if(sessionStorage.getItem('rightCount') === null) {
+                        sessionStorage.setItem('rightCount', 1);
+                    } else {
+                        sessionStorage.setItem('rightCount', sessionStorage.getItem('rightCount') + 1);
+                    }
+                    if(sessionStorage.getItem('wrongCount') === null) {
+                        sessionStorage.setItem('wrongCount', 0);
+                    }
+                    responsehtml = `<p class="qMessage">Correct!`;
+                } else {
+                    if(sessionStorage.getItem('wrongCount') === null) {
+                        sessionStorage.setItem('wrongCount', 1);
+                    } else {
+                        sessionStorage.setItem('wrongCount', sessionStorage.getItem('wrongCount') + 1);
+                    }
+                    if(sessionStorage.getItem('rightCount') === null) {
+                        sessionStorage.setItem('rightCount', 0);
+                    }
+                    responsehtml = `<p class="qMessage">Wrong!`;
+                }
+                let rightAnswers = sessionStorage.getItem('rightCount');
+                let wrongAnswers = sessionStorage.getItem('wrongCount');
+                let totalAnswers = sessionStorage.getItem('rightCount') + sessionStorage.getItem('wrongCount');
+                let answerRate = Math.round((rightAnswers / totalAnswers) * 100)
+                responsehtml += `  You have answered ${rightAnswers} questions correctly out of ${totalAnswers} questions.  That's ${answerRate}%`;
+                switch answerRate {
+                    case < 50:
+                        responsehtml += `:( </p>`;
+                        break;
+                    case < 70:
+                        responsehtml += `:| </p>`;
+                        break;
+                    default:
+                        responsehtml += `:) </p>`;
+                        break;
+                }
+                document.getElementById('qMessageArea').innerHTML = responsehtml;
+                loadQuestion();
+            })
+            .catch(error => console.error(error));
     }
 </script>
 <?php include 'templates/footer.php'; ?>

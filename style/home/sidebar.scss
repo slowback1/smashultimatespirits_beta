@@ -1,8 +1,42 @@
 .sidebar {
+    transition: 0.5s;
+    overflow-x: hidden;
+    @extend %tertiary-colors;
+    @extend %flex-column-nowrap;
     position: fixed;
     left: 0;
-    width: 20vw;
+    width: 0;
+    z-index: 1;
     height: 100vh;
-    background-color: #020202;
-    color: #edfeff;
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+    .closeBtn {
+        position: relative;
+        top: .5rem;
+        left: 10.5rem;
+        font-size: 1.5rem;
+    }
+    .sidebarLink {
+        font-size: 1.8rem;
+        margin-top: 2.75rem;
+        opacity: 0.8;
+        transition: 0.5s;
+    }
+    .sidebarLink:hover {
+        opacity: 1;
+    }
+    .loginArea {
+        position: absolute;
+        bottom: .75rem;
+        width: 100%;
+    }
+    .adminSeperator {
+        margin-top: 3rem;
+        
+    }
+    #remainingSpirits {
+        margin-top: 1rem;
+    }
 }

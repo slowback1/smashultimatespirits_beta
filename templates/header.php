@@ -16,7 +16,7 @@
         </div>
         <div class="searchArea">
             <form onSubmit="search('name', document.getElementById('searchValue').value)">
-                <input type="text" onKeyup="findAutoResult()" id="searchValue" placeholder="Search" />
+                <input type="text" onKeyup="findAutoResult()" autocomplete="off" id="searchValue" placeholder="Search" />
                 <input type="submit"  name="Search" value="Search" />
             </form>
             <div class="searchResults" id="searchResults">
@@ -48,7 +48,7 @@
             }
             if($isLoggedIn) {
                 echo "
-                    <p class='sidebarHeader'>Super Secret Admin Area</p>
+                    <div class='adminSeperator'></div>
                     <a class='sidebarLink' href='admin/addSpirit.php'>Add Spirit</a>
                     <a class='sidebarLink' href='admin/editSpirit.php'>Edit Spirit</a>
                     <a class='sidebarLink' href='admin/deleteSpirit.php'>Delete Spirit</a>
@@ -79,7 +79,7 @@
 <script>
     const maxSpirits = 1320;
     function getRemainingSpirits() {
-        let url = '../api/spirits/count.php';
+        let url = 'api/spirits/count.php';
         let options = {
             method: "GET",
             mode: "cors",
@@ -95,12 +95,13 @@
         return fetch(url, options)
             .then(response => response.json())
             .then(jsonresponse => {
+                let responsehtmlcode
                 if(jsonresponse.records.count >= maxSpirits) {
-                    let responsehtmlcode = `
+                    responsehtmlcode = `
                         <p>All ${maxSpirits} spirits are accounted for!</p>
                     `;
                 } else {
-                    let responsehtmlcode = `
+                    responsehtmlcode = `
                         <p>${jsonresponse.records.count} Spirits accounted for.</p>
                         <p>${maxSpirits - jsonresponse.records.count} Spirits Remain.</p>
                     `;
@@ -108,13 +109,16 @@
                 document.getElementById('remainingSpirits').innerHTML = responsehtmlcode;
             })
     }
+    setTimeout(function(){getRemainingSpirits()}, 500);
     let isOpen = false;
     function toggleSidebar() {
         if(isOpen) {
-            document.getElementById('sidebar').style.display = "none";
+            document.getElementById('sidebar').style.width = "0";
+            setTimeout(function(){document.getElementById('sidebar').style.display = "none"}, 500);
             isOpen = false;
         } else {
-            document.getElementById('sidebar').style.display = "block";
+            setTimeout(function(){document.getElementById('sidebar').style.width = "196px"}, 100);
+            document.getElementById('sidebar').style.display = "flex";
             isOpen = true;
         }
     }
@@ -214,21 +218,18 @@
 
 
     function search(type, query) {
-        const url = './api/spirits/search.php';
+        const url = `./api/spirits/search.php?searchType=${type}&searchQuery=${query}`;
         let options = {
-            method: "POST",
+            method: "GET",
             mode: "cors",
             cache: "no-cache",
             credentials: "same-origin",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/urlencoded"
             },
             redirect: "follow",
             referrer: "no-referrer",
-            body: JSON.stringify({
-                searchType: type,
-                searchQuery: query
-            }),
+            
         }
         return fetch(url, options)
             .then(response => response.json())

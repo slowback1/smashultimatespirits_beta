@@ -17,25 +17,27 @@
     }
     }
 
-    $sqlG = "SELECT * FROM spirits WHERE game LIKE '$query' LIMIT 3";
+    $sqlG = "SELECT game, series FROM spirits WHERE game LIKE '%$query%' ORDER BY CASE WHEN game LIKE '$query%' THEN 1 ELSE game END LIMIT 3";
     $res_arr['game'] = array();
     $result = $conn->query($sqlG);
     if($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
         $item = array(
-            $game = $row['game'],
-            $series = $row['series']
+            "game" => $row['game'],
+            "series" => $row['series']
         );
+        array_push($res_arr['game'], $item);
     }
     }
-    $sqlSe = "SELECT * FROM spirits WHERE series LIKE '$query' LIMIT 1";
+    $sqlSe = "SELECT series FROM spirits WHERE series LIKE '%$query%' ORDER BY CASE WHEN series LIKE '$query%' THEN 1 ELSE series END LIMIT 1";
     $res_arr['series'] = array();
     $result = $conn->query($sqlSe);
     if($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
         $item = array(
-            $series = $row['series']
+            "series" => $row['series']
         );
+        array_push($res_arr['series'], $item);
     }
     }
     if(empty($res_arr)) {

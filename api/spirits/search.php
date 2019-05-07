@@ -2,16 +2,16 @@
     include '../../connection/connect.php';
     $query = $_GET['searchQuery'];
     $searchType = $_GET['searchType'];
-    $sql = "SELECT * FROM spirits WHERE $searchType LIKE '$query' LIMIT 30";
+    $sql = "SELECT * FROM spirits WHERE $searchType LIKE '%$query%' ORDER BY CASE WHEN $searchType LIKE '$query%' THEN 1 ELSE id END LIMIT 30";
     $res_arr = array();
     $result = $conn->query($sql);
     if($result->num_rows > 0) {
         while($row = $result->fetch_assoc()) {
             $item = array(
-                $id = $row['id'],
-                $name = $row['name'],
-                $game = $row['game'],
-                $series = $row['series']
+                "id" => $row['id'],
+                "name" => $row['name'],
+                "game" => $row['game'],
+                "series" => $row['series']
             );
             array_push($res_arr, $item);
     }

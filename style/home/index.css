@@ -63,7 +63,7 @@ footer, nav {
   color: #b2b9c4;
 }
 
-nav .searchArea .searchResults {
+.sidebar, nav .searchArea .searchResults {
   background-color: #030f23;
   color: #c2c3c4;
 }
@@ -86,7 +86,7 @@ footer .fCol, footer, .spiritBox a .lowerBox, nav .searchArea form, nav {
   flex-wrap: nowrap;
 }
 
-.spiritBox, body, nav .searchArea {
+.spiritBox, .sidebar, body, nav .searchArea .searchResults, nav .searchArea {
   display: -webkit-box;
   display: ms-flex-box;
   display: -webkit-flex;
@@ -108,6 +108,7 @@ header h1 {
 nav {
   width: 100vw;
   height: 4rem;
+  overflow: block;
   justify-content: space-between;
 }
 nav .hamburgerContainer {
@@ -122,12 +123,47 @@ nav .hamburgerContainer a img {
   width: 4rem;
   height: 4rem;
 }
+nav .searchArea {
+  min-width: 40%;
+  max-width: 50%;
+}
+nav .searchArea form {
+  width: 100%;
+}
 nav .searchArea form input[type=text] {
   border-radius: 10px;
+  flex-basis: 5;
+  flex-grow: 6;
 }
 nav .searchArea form input[type=submit] {
   border-radius: 10px;
+  flex-basis: 3;
+  flex-grow: 2;
 }
+nav .searchArea .searchResults {
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  height: 100rem;
+}
+nav .searchArea .searchResults .searchResultHeader {
+  font-weight: 200;
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+nav .searchArea .searchResults a {
+  width: 100%;
+  color: inherit;
+  text-decoration: none;
+  padding-top: 0.685rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.485rem;
+  transition: 0.5s;
+}
+nav .searchArea .searchResults a:hover {
+  background-color: #45494f;
+}
+
 .gluedToTop {
   position: fixed;
   top: 0;
@@ -144,17 +180,44 @@ body {
   min-height: 800px;
 }
 
-#sidebar {
-  display: none;
-}
-
 .sidebar {
+  transition: 0.5s;
+  overflow-x: hidden;
   position: fixed;
   left: 0;
-  width: 20vw;
+  width: 0;
+  z-index: 1;
   height: 100vh;
-  background-color: #020202;
-  color: #edfeff;
+}
+.sidebar a {
+  color: inherit;
+  text-decoration: none;
+}
+.sidebar .closeBtn {
+  position: relative;
+  top: 0.5rem;
+  left: 10.5rem;
+  font-size: 1.5rem;
+}
+.sidebar .sidebarLink {
+  font-size: 1.8rem;
+  margin-top: 2.75rem;
+  opacity: 0.8;
+  transition: 0.5s;
+}
+.sidebar .sidebarLink:hover {
+  opacity: 1;
+}
+.sidebar .loginArea {
+  position: absolute;
+  bottom: 0.75rem;
+  width: 100%;
+}
+.sidebar .adminSeperator {
+  margin-top: 3rem;
+}
+.sidebar #remainingSpirits {
+  margin-top: 1rem;
 }
 
 .spiritBox {
