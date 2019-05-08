@@ -42,7 +42,7 @@
     <!-- // more stuff goes here -->
     <nav>
         <div onClick="getSpirit('previous', currentID)" class="navArrow" id="previousSpirit"><-- Previous Spirit</div>
-        <a href="index.php?place=<?php echo $id; ?>" class="navLink"> Return to Index </a>
+        <a id="indexLink" href="index.php?place=<?php echo $id; ?>" class="navLink"> Return to Index </a>
         <div onClick="getSpirit('random', 0)" class="navLink"> Random Spirit </a></div>
         <div onClick="getSpirit('next', currentID)" class="navArrow" id="nextSpirit">Next Spirit --></div>
     </nav>
@@ -185,6 +185,7 @@
                 `;
                 document.getElementById('descBody').innerHTML = htmlresponsecode;
                 document.title = `${name} | Details`;
+                document.getElementById('indexLink').setAttribute('href', `index.php?place=${id}`);
                 currentID = id;
                 getNextSpirit(spiritID);
                 getPreviousSpirit(spiritID);

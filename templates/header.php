@@ -212,8 +212,10 @@
                     let s = series.series;
                     seriesHtml = seriesHtml + `<a href=javascript:void() onClick='search('series', ${s})> ${s} </a>`;
                 });
+                document.getElementById('searchResults').style.display = "flex";
                 document.getElementById('searchResults').innerHTML = spiritHtml + gameHtml + seriesHtml;
             })
+            .catch(error => console.error(error));
     }
 
 
@@ -254,4 +256,13 @@
                 });
             });
     }
+    function clearSearchResults(e) {
+        if(e.target.id != 'searchResults') {
+            document.getElementById('searchResults').style.display = "none";
+            document.getElementById('searchResults').innerHTML = "";
+            document.getElementById('searchValue').value = "";
+        }
+    }
+    document.addEventListener('click', clearSearchResults, false);
+    
 </script>

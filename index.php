@@ -58,6 +58,13 @@
         }
     }
     */
+    const max = 1320;
+    var parts = window.location.search.substr(1).split("&");
+        var $_GET = {};
+        for (var i = 0; i < parts.length; i++) {
+            var temp = parts[i].split("=");
+            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+        }
    const throttle = (func, limit) => {
        let lastFunc;
        let lastRan;
@@ -81,9 +88,13 @@
     let numOfSpirits = 0;
     //count is an integer, which represents how many times loadMore has been called since page load
     function loadMore(count) {
-        let curAmnt = count * 60;
-        const url = `./api/spirits/getSome.php?limit=60&offset=${curAmnt}`;
-        
+        let url = "";
+        if(count >= max) {
+            url = `./api/spirits/getSome.php?limit=60?offset=0`;
+            numOfSpirits = 0;
+        } else {
+            url = `./api/spirits/getSome.php?limit=60&offset=${count}`;
+        }
         let options = {
             method: "GET",
             mode: "cors",
@@ -122,10 +133,15 @@
             .catch(error => console.error(error));
     }
     function callLoadMore(num) {
-        numOfSpirits++;
+        numOfSpirits += 60;
         return loadMore(num)
     }
-    throttle(callLoadMore(0), 2500);
+    if($_GET.place !== null) {
+        throttle(callLoadMore($_GET.place - 1));
+        numOfSpirits = Number($_GET.place) + 59;
+    } else {
+        throttle(callLoadMore(0), 2500);
+    }
     function checkIfAtBottom() {
         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 250) {
             throttle(callLoadMore(numOfSpirits), 2500);
