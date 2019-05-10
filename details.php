@@ -39,7 +39,6 @@
     echo "<script>let currentID=$id;</script>";
 ?>
 <body>
-    <!-- // more stuff goes here -->
     <nav>
         <div onClick="getSpirit('previous', currentID)" class="navArrow" id="previousSpirit"><-- Previous Spirit</div>
         <a id="indexLink" href="index.php?place=<?php echo $id; ?>" class="navLink"> Return to Index </a>
@@ -47,6 +46,55 @@
         <div onClick="getSpirit('next', currentID)" class="navArrow" id="nextSpirit">Next Spirit --></div>
     </nav>
     <div class="descBody" id="descBody">
+        <div class="descSection">
+            <div class="searchHead">
+            <form id="searchSettings">
+                <input type="radio" name="sort" value="id">ID 
+                <input type="radio" name="sort" value="name">Name
+                <input type="radio" name="sort" value="game">Game
+                <input type="radio" name="sort" value="series">Series
+                <br />
+                <input type="radio" name="series" value="AnimalCrossing"> Animal Crossing
+                <input type="radio" name="series" value="Bayonetta"> Bayonetta
+                <input type="radio" name="series" value="Castlevania"> Castlevania
+                <input type="radio" name="series" value="DK"> Donkey Kong
+                <input type="radio" name="series" value="DuckHunt"> Duck Hunt
+                <input type="radio" name="series" value="FinalFantasy"> Final Fantasy
+                <input type="radio" name="series" value="FireEmblem"> Fire Emblem
+                <input type="radio" name="series" value="FZero"> F-Zero
+                <input type="radio" name="series" value="GameWatch"> Game & Watch
+                <input type="radio" name="series" value="IceClimber"> Ice Climber
+                <input type="radio" name="series" value="KidIcarus"> Kid Icarus
+                <input type="radio" name="series" value="Kirby"> Kirby
+                <input type="radio" name="series" value="Mario"> Mario
+                <input type="radio" name="series" value="MegaMan"> Mega Man
+                <input type="radio" name="series" value="MetalGear"> Metal Gear
+                <input type="radio" name="series" value="Metroid"> Metroid
+                <input type="radio" name="series" value="Mii"> Mii
+                <input type="radio" name="series" value="Mother"> Mother
+                <input type="radio" name="series" value="Other"> Other
+                <input type="radio" name="series" value="PacMan"> Pac-Man
+                <input type="radio" name="series" value="Persona"> Persona
+                <input type="radio" name="series" value="Pikmin"> Pikmin
+                <input type="radio" name="series" value="Pokemon"> Pokemon
+                <input type="radio" name="series" value="PunchOut"> Punch Out
+                <input type="radio" name="series" value="ROB"> R.O.B.
+                <input type="radio" name="series" value="Smash"> Super Smash Brothers
+                <input type="radio" name="series" value="Sonic"> Sonic
+                <input type="radio" name="series" value="Splatoon"> Splatoon
+                <input type="radio" name="series" value="StarFox"> Star Fox
+                <input type="radio" name="series" value="StreetFighter"> Street Fighter
+                <input type="radio" name="series" value="Wario"> Wario
+                <input type="radio" name="series" value="WiiFit"> Wii Fit
+                <input type="radio" name="series" value="Xenoblade"> Xenoblade
+                <input type="radio" name="series" value="Yoshi"> Yoshi
+                <input type="radio" name="series" value="Zelda"> Zelda 
+            </form>
+            </div>
+            <div id="searchBody" class="searchBody">
+                
+            </div>
+        </div>
         <div class="descSection">
             <div class="descImgContainer">
                 <img src="img/spiritImages/<?php echo $sid; ?>.png" alt="<?php echo $name; ?>" />
@@ -193,6 +241,45 @@
             })
             .catch(error=> console.error(error));
             
+    }
+    function getDetailsSearchResults() {
+        let formData = document.getElementById('searchSettings').elements;
+        let sortOptions = "";
+        //iterate through options for what to sort by
+        for(var a = 0; a < 3; a++) {
+            if(formData[a].checked) {
+                sortOptions = formData[a].value;
+            }
+        }
+        let seriesOptions = [];
+        for(var b = 3; b < formData.length(); b++) {
+            if(formData[b].checked) {
+                seriesOptions.push(formData[b].value);
+            }
+        }
+        let url = "./api/spirits/detailsSearch.php";
+        let options = {
+            method: "POST", 
+            credentials: "same-origin",
+            cache: "no-cache",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: {
+                "sortOrder": sortOptions,
+                "seriesFilter": seriesOptions
+            }
+        }
+        return fetch(url, options) 
+            .then(res => res.json())
+            .then(response => {
+                responsehtml = ``;
+                response.map(spirit => {
+                    responsehtml = responsehtml + `<p onClick="getSpirit("default", ${spirit.id})>${spirit.id} ${spirit.name}</p>`;
+                });
+                document.getElementById('searchBody').innerHTML = responsehtml;
+            })
+            .catch(error => console.error(error));
     }
 </script>
 </html>

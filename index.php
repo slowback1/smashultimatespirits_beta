@@ -136,7 +136,7 @@
         numOfSpirits += 60;
         return loadMore(num)
     }
-    if($_GET.place !== null) {
+    if(!isNaN($_GET.place)) {
         throttle(callLoadMore($_GET.place - 1));
         numOfSpirits = Number($_GET.place) + 59;
     } else {
