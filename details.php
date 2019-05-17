@@ -11,7 +11,7 @@
 <?php
     include_once 'connection/connect.php';
     if ($_GET['id'] == 0) {
-        $id = rand(0, 1320);
+        $id = rand(1, 1320);
     } else {
         $id = $_GET['id'];
     }
@@ -33,6 +33,7 @@
 <head>
     <meta charset="utf-8">
     <link rel="stylesheet" href="style/details/index.css" />
+    <link rel="stylesheet" href="./templates/external_scripts/nouislider.min.css" />
     <title><?php echo $name; ?> | Details</title>
 </head>
 <?php
@@ -45,56 +46,64 @@
         <div onClick="getSpirit('random', 0)" class="navLink"> Random Spirit </a></div>
         <div onClick="getSpirit('next', currentID)" class="navArrow" id="nextSpirit">Next Spirit --></div>
     </nav>
-    <div class="descBody" id="descBody">
-        <div class="descSection">
+    <div class="descSection" style="width: 50vw; margin-left: 20%;">
             <div class="searchHead">
-            <form id="searchSettings">
-                <input type="radio" name="sort" value="id">ID 
-                <input type="radio" name="sort" value="name">Name
-                <input type="radio" name="sort" value="game">Game
-                <input type="radio" name="sort" value="series">Series
-                <br />
-                <input type="radio" name="series" value="AnimalCrossing"> Animal Crossing
-                <input type="radio" name="series" value="Bayonetta"> Bayonetta
-                <input type="radio" name="series" value="Castlevania"> Castlevania
-                <input type="radio" name="series" value="DK"> Donkey Kong
-                <input type="radio" name="series" value="DuckHunt"> Duck Hunt
-                <input type="radio" name="series" value="FinalFantasy"> Final Fantasy
-                <input type="radio" name="series" value="FireEmblem"> Fire Emblem
-                <input type="radio" name="series" value="FZero"> F-Zero
-                <input type="radio" name="series" value="GameWatch"> Game & Watch
-                <input type="radio" name="series" value="IceClimber"> Ice Climber
-                <input type="radio" name="series" value="KidIcarus"> Kid Icarus
-                <input type="radio" name="series" value="Kirby"> Kirby
-                <input type="radio" name="series" value="Mario"> Mario
-                <input type="radio" name="series" value="MegaMan"> Mega Man
-                <input type="radio" name="series" value="MetalGear"> Metal Gear
-                <input type="radio" name="series" value="Metroid"> Metroid
-                <input type="radio" name="series" value="Mii"> Mii
-                <input type="radio" name="series" value="Mother"> Mother
-                <input type="radio" name="series" value="Other"> Other
-                <input type="radio" name="series" value="PacMan"> Pac-Man
-                <input type="radio" name="series" value="Persona"> Persona
-                <input type="radio" name="series" value="Pikmin"> Pikmin
-                <input type="radio" name="series" value="Pokemon"> Pokemon
-                <input type="radio" name="series" value="PunchOut"> Punch Out
-                <input type="radio" name="series" value="ROB"> R.O.B.
-                <input type="radio" name="series" value="Smash"> Super Smash Brothers
-                <input type="radio" name="series" value="Sonic"> Sonic
-                <input type="radio" name="series" value="Splatoon"> Splatoon
-                <input type="radio" name="series" value="StarFox"> Star Fox
-                <input type="radio" name="series" value="StreetFighter"> Street Fighter
-                <input type="radio" name="series" value="Wario"> Wario
-                <input type="radio" name="series" value="WiiFit"> Wii Fit
-                <input type="radio" name="series" value="Xenoblade"> Xenoblade
-                <input type="radio" name="series" value="Yoshi"> Yoshi
-                <input type="radio" name="series" value="Zelda"> Zelda 
-            </form>
+                <form id="searchSettings">
+                    <input type="radio" name="sort" value="id">ID 
+                    <input type="radio" name="sort" value="name">Name
+                    <input type="radio" name="sort" value="game">Game
+                    <input type="radio" name="sort" value="series">Series
+                    <input type="radio" name="sort" value="release_year"> Release Year
+                    <br />
+                    <input type="checkbox" name="series" value="AnimalCrossing"> Animal Crossing
+                    <input type="checkbox" name="series" value="Bayonetta"> Bayonetta
+                    <input type="checkbox" name="series" value="Castlevania"> Castlevania
+                    <input type="checkbox" name="series" value="DK"> Donkey Kong
+                    <input type="checkbox" name="series" value="DuckHunt"> Duck Hunt
+                    <input type="checkbox" name="series" value="FinalFantasy"> Final Fantasy
+                    <input type="checkbox" name="series" value="FireEmblem"> Fire Emblem
+                    <input type="checkbox" name="series" value="FZero"> F-Zero
+                    <input type="checkbox" name="series" value="GameWatch"> Game & Watch
+                    <input type="checkbox" name="series" value="IceClimber"> Ice Climber
+                    <input type="checkbox" name="series" value="KidIcarus"> Kid Icarus
+                    <input type="checkbox" name="series" value="Kirby"> Kirby
+                    <input type="checkbox" name="series" value="Mario"> Mario
+                    <input type="checkbox" name="series" value="MegaMan"> Mega Man
+                    <input type="checkbox" name="series" value="MetalGear"> Metal Gear
+                    <input type="checkbox" name="series" value="Metroid"> Metroid
+                    <input type="checkbox" name="series" value="Mii"> Mii
+                    <input type="checkbox" name="series" value="Mother"> Mother
+                    <input type="checkbox" name="series" value="Other"> Other
+                    <input type="checkbox" name="series" value="PacMan"> Pac-Man
+                    <input type="checkbox" name="series" value="Persona"> Persona
+                    <input type="checkbox" name="series" value="Pikmin"> Pikmin
+                    <input type="checkbox" name="series" value="Pokemon"> Pokemon
+                    <input type="checkbox" name="series" value="PunchOut"> Punch Out
+                    <input type="checkbox" name="series" value="ROB"> R.O.B.
+                    <input type="checkbox" name="series" value="Smash"> Super Smash Brothers
+                    <input type="checkbox" name="series" value="Sonic"> Sonic
+                    <input type="checkbox" name="series" value="Splatoon"> Splatoon
+                    <input type="checkbox" name="series" value="StarFox"> Star Fox
+                    <input type="checkbox" name="series" value="StreetFighter"> Street Fighter
+                    <input type="checkbox" name="series" value="Wario"> Wario
+                    <input type="checkbox" name="series" value="WiiFit"> Wii Fit
+                    <input type="checkbox" name="series" value="Xenoblade"> Xenoblade
+                    <input type="checkbox" name="series" value="Yoshi"> Yoshi
+                    <input type="checkbox" name="series" value="Zelda"> Zelda 
+                    <br />
+                    <div id="yearSlider"> </div>
+                    <div onClick="handleSidebarSpiritInput()" style="background-color: white; border-radius: 10px; border: 1px solid black; color: black;">Test Sorting API</div>
+                </form>
             </div>
+        </div>
+        <div class="descSection">
             <div id="searchBody" class="searchBody">
                 
             </div>
         </div>
+    <div class="descBody" id="descBody">
+        
+        
         <div class="descSection">
             <div class="descImgContainer">
                 <img src="img/spiritImages/<?php echo $sid; ?>.png" alt="<?php echo $name; ?>" />
@@ -112,8 +121,9 @@
         </div>
     </div>
 </body>
+<script src="./templates/external_scripts/nouislider.min.js"></script>
 <script>
-    //this function needs to be updated whenever there is a new total amount of spirits
+    //this constant needs to be updated whenever there is a new total amount of spirits
     const max = 1320;
     function getNextSpirit(id) {
         if(id == max) {
@@ -242,44 +252,148 @@
             .catch(error=> console.error(error));
             
     }
-    function getDetailsSearchResults() {
-        let formData = document.getElementById('searchSettings').elements;
-        let sortOptions = "";
-        //iterate through options for what to sort by
-        for(var a = 0; a < 3; a++) {
-            if(formData[a].checked) {
-                sortOptions = formData[a].value;
-            }
-        }
-        let seriesOptions = [];
-        for(var b = 3; b < formData.length(); b++) {
-            if(formData[b].checked) {
-                seriesOptions.push(formData[b].value);
-            }
-        }
-        let url = "./api/spirits/detailsSearch.php";
-        let options = {
-            method: "POST", 
-            credentials: "same-origin",
-            cache: "no-cache",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: {
-                "sortOrder": sortOptions,
-                "seriesFilter": seriesOptions
-            }
-        }
-        return fetch(url, options) 
-            .then(res => res.json())
-            .then(response => {
-                responsehtml = ``;
-                response.map(spirit => {
-                    responsehtml = responsehtml + `<p onClick="getSpirit("default", ${spirit.id})>${spirit.id} ${spirit.name}</p>`;
-                });
-                document.getElementById('searchBody').innerHTML = responsehtml;
-            })
-            .catch(error => console.error(error));
+//input: sort is one of ["name", "game", "id", "series", "release_year"]
+//       offset is an int between 1 and 1320
+//       excludeArr is an array containing which series to include
+//       yearRange is an array with 2 values, [minYear, maxYear]
+function getSidebarSpirits(sort, offset, includeArr, yearRange) {
+    let includeList;
+    let sentOffset;
+    let sentSort;
+    if(includeArr === undefined || includeArr.length == 0) {
+        includeList = "all";
+    } else {
+        includeList = includeArr;
     }
+    if(offset > max - 20) {
+        sentOffset = max - 20;
+    } else if(offset == max) {
+        sentOffset = 0;
+    } else {
+        sentOffset = offset;
+    }
+    switch (sort) {
+        case "name":
+            sentSort = "name";
+            break;
+        case "game":
+            sentSort = "game";
+            break;
+        case "id":
+            sentSort = "id";
+            break;
+        case "series":
+            sentSort = "series";
+            break;
+        case "release_year":
+            sentSort = "release_year";
+            break;
+        default:   
+            sentSort = "id";
+            break;
+    }
+    let url = "./api/spirits/detailsSearch.php";
+    let options = {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        redirect: "follow",
+        referrer: "no-referrer",
+        body: JSON.stringify({
+            "sortType": sentSort,
+            "offset": sentOffset,
+            "includes": includeList,
+            "minYear": yearRange[0],
+            "maxYear": yearRange[1]
+        })
+    }
+    return fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+            htmlresponsecode = `<div class="spiritsSidebar">`;
+            data.map(item => {
+                htmlresponsecode = htmlresponsecode + `
+                    <div class="spiritsSidebarItem" onClick="getSpirit('default', ${item.id.toString()})">`
+                    //<img src="img/seriesIcons/${item.series}.png" />  commenting out til I style this part of the page, since the images massacre the layout as is
+                    +`<p>${item.id} ${item.name} </p>
+                    </div>
+                `;
+            });
+            htmlresponsecode = htmlresponsecode + `</div>`;
+            document.getElementById('searchBody').innerHTML = htmlresponsecode;
+
+        })
+        .catch(error => console.error(error));
+}
+getSidebarSpirits("id",<?php echo $id - 1; ?> ,"all", [1980, 2019]);
+
+
+
+    let yearSlider = document.getElementById('yearSlider');
+    noUiSlider.create(yearSlider, {
+        start: [1980, 2019],
+        animate: true,
+        animationDuration: 350,
+        connect: true,
+        step: 1,
+        tooltips: true,
+        range: {
+            'min': 1980,
+            'max': 2019
+        },
+        format: {
+            to: function( value ) {
+                return value + '';
+            },
+            from: function( value ) {
+                return value.replace(',-', '');
+            }
+        }
+    });
+
+    function handleSidebarSpiritInput() {
+        console.log(document.getElementById('searchSettings').elements);
+        let sortValue;
+        let offsetValue;
+        let seriesValue = [];
+        let yearRangeValue;
+        //handle sort inputs
+        let inputs = document.getElementById('searchSettings');
+        for(var a = 0; a < 4; a++) {
+            if(inputs[a].checked) {
+                sortValue = inputs[a].value; 
+            }
+        }
+        //handle offset input
+        var parts = window.location.search.substr(1).split("&");
+        var $_GET = {};
+        for (var i = 0; i < parts.length; i++) {
+            var temp = parts[i].split("=");
+            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+        }
+        offsetValue = $_GET.id;
+        //handle series input
+        for(var b = 4; b < 39; b++) {
+            if(inputs[b].checked) {
+                seriesValue.push(inputs[b].value);
+            }
+        }
+        //handle year range input
+        let minYear = Number(yearSlider.noUiSlider.get()[0]);
+        let maxYear = Number(yearSlider.noUiSlider.get()[1]);
+        yearRangeValue = [minYear, maxYear];
+        return getSidebarSpirits(sortValue, offsetValue, seriesValue, yearRangeValue);
+    }
+
+
+    document.getElementsByClassName("noUi-tooltip").map(item => {
+       item.innerHTML = item.innerHTML.slice(0, -3); 
+    });
 </script>
 </html>
+
+
