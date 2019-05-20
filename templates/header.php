@@ -15,9 +15,9 @@
             <a href="javascript:void(0)" onClick="toggleSidebar()"><img src="img/hamburger.png" alt="hamburger Button" id="hamburgerBtn" /></a>
         </div>
         <div class="searchArea">
-            <form onSubmit="search('name', document.getElementById('searchValue').value)">
-                <input type="text" onKeyup="findAutoResult()" autocomplete="off" id="searchValue" placeholder="Search" />
-                <input type="submit"  name="Search" value="Search" />
+            <form onSubmit="handleSearch()">
+                <input type="text" onKeyup="findAutoResult()" autocomplete="off" name="searchValue" id="searchValue" placeholder="Search" />
+                <input type="submit"  name="Search" />
             </form>
             <div class="searchResults" id="searchResults">
 
@@ -175,7 +175,9 @@
         }
     }
     document.addEventListener('scroll', function(){checkNav()});
+    let searchText = "";
     function findAutoResult() {
+        searchText = document.getElementById('searchValue.value');
         let searchValue = document.getElementById('searchValue').value;
         let url = `api/spirits/autoResponse.php?query=${searchValue}`;
         let options = {
@@ -237,24 +239,34 @@
             .then(response => response.json())
             .then(jsonresponse => {
                 document.getElementById('main').innerHTML = "";
+                let response = '';
                 jsonresponse.map(spirit => {
                     let id = spirit.id;
                     let name = spirit.name;
                     let series = spirit.series;
                     let rhtml = `
-                        <div class='spiritBox'>
-                            <div class='spiritImgContainer'>
-                                <img src='img/spiritImages/${id}.png' alt='${name}' />
-                            </div>
-                            <div class='lowerBox'>
-                                <img src='img/seriesImages/${series}.png' alt='${series}' />
-                                <p> ${id} ${name} </p>
-                            </div>
+                    <div class='spiritBox'>
+                    <a href="details.php?id=${id}">
+                        <div class='spiritImgContainer'>
+                            <img src='img/spiritImages/${id}.png' alt='${name}' />
                         </div>
+                        <div class='lowerBox'>
+                            <img src='img/seriesIcons/${series}.png' alt='${series}' />
+                            <p> ${id} ${name} </p>
+                        </div>
+                        </a>
+                    </div>
                     `;
-                    document.getElementById('main').innerHTML = document.getElementById('main').innerHTML + rhtml;
+                    response = response + rhtml;
                 });
+                document.getElementById('main').innerHTML = response;
             });
+    }
+    function handleSearch() {
+        let type = "name";
+        let value = document.getElementById('searchValue').value;
+        history.pushState({}, null, `index.php?Search=${value}`);
+        return search(type, value);
     }
     function clearSearchResults(e) {
         if(e.target.id != 'searchResults') {

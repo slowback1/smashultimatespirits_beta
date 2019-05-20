@@ -46,52 +46,59 @@
         <div onClick="getSpirit('random', 0)" class="navLink"> Random Spirit </a></div>
         <div onClick="getSpirit('next', currentID)" class="navArrow" id="nextSpirit">Next Spirit --></div>
     </nav>
+    <div class="searchSeaction" style="width: 50vw; margin-left: 20%">
+        <input type="text" onkeyup="getAutoResult()" id="searchText" placeholder="Search..." />
+        <div onclick="search()">Search</div>
+        <div id="searchResults">
+
+        </div>
+    </div>
     <div class="descSection" style="width: 50vw; margin-left: 20%;">
             <div class="searchHead">
                 <form id="searchSettings">
-                    <input type="radio" name="sort" value="id">ID 
-                    <input type="radio" name="sort" value="name">Name
-                    <input type="radio" name="sort" value="game">Game
-                    <input type="radio" name="sort" value="series">Series
-                    <input type="radio" name="sort" value="release_year"> Release Year
+                    <input type="radio" name="sort" value="id" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" checked>ID 
+                    <input type="radio" name="sort" value="name" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" >Name
+                    <input type="radio" name="sort" value="game" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)">Game
+                    <input type="radio" name="sort" value="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)">Series
+                    <input type="radio" name="sort" value="release_year" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)"> Release Year
                     <br />
-                    <input type="checkbox" name="series" value="AnimalCrossing"> Animal Crossing
-                    <input type="checkbox" name="series" value="Bayonetta"> Bayonetta
-                    <input type="checkbox" name="series" value="Castlevania"> Castlevania
-                    <input type="checkbox" name="series" value="DK"> Donkey Kong
-                    <input type="checkbox" name="series" value="DuckHunt"> Duck Hunt
-                    <input type="checkbox" name="series" value="FinalFantasy"> Final Fantasy
-                    <input type="checkbox" name="series" value="FireEmblem"> Fire Emblem
-                    <input type="checkbox" name="series" value="FZero"> F-Zero
-                    <input type="checkbox" name="series" value="GameWatch"> Game & Watch
-                    <input type="checkbox" name="series" value="IceClimber"> Ice Climber
-                    <input type="checkbox" name="series" value="KidIcarus"> Kid Icarus
-                    <input type="checkbox" name="series" value="Kirby"> Kirby
-                    <input type="checkbox" name="series" value="Mario"> Mario
-                    <input type="checkbox" name="series" value="MegaMan"> Mega Man
-                    <input type="checkbox" name="series" value="MetalGear"> Metal Gear
-                    <input type="checkbox" name="series" value="Metroid"> Metroid
-                    <input type="checkbox" name="series" value="Mii"> Mii
-                    <input type="checkbox" name="series" value="Mother"> Mother
-                    <input type="checkbox" name="series" value="Other"> Other
-                    <input type="checkbox" name="series" value="PacMan"> Pac-Man
-                    <input type="checkbox" name="series" value="Persona"> Persona
-                    <input type="checkbox" name="series" value="Pikmin"> Pikmin
-                    <input type="checkbox" name="series" value="Pokemon"> Pokemon
-                    <input type="checkbox" name="series" value="PunchOut"> Punch Out
-                    <input type="checkbox" name="series" value="ROB"> R.O.B.
-                    <input type="checkbox" name="series" value="Smash"> Super Smash Brothers
-                    <input type="checkbox" name="series" value="Sonic"> Sonic
-                    <input type="checkbox" name="series" value="Splatoon"> Splatoon
-                    <input type="checkbox" name="series" value="StarFox"> Star Fox
-                    <input type="checkbox" name="series" value="StreetFighter"> Street Fighter
-                    <input type="checkbox" name="series" value="Wario"> Wario
-                    <input type="checkbox" name="series" value="WiiFit"> Wii Fit
-                    <input type="checkbox" name="series" value="Xenoblade"> Xenoblade
-                    <input type="checkbox" name="series" value="Yoshi"> Yoshi
-                    <input type="checkbox" name="series" value="Zelda"> Zelda 
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="AnimalCrossing"> Animal Crossing
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Bayonetta"> Bayonetta
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Castlevania"> Castlevania
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="DK"> Donkey Kong
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="DuckHunt"> Duck Hunt
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="FinalFantasy"> Final Fantasy
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="FireEmblem"> Fire Emblem
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="FZero"> F-Zero
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="GameWatch"> Game & Watch
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="IceClimber"> Ice Climber
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="KidIcarus"> Kid Icarus
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Kirby"> Kirby
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Mario"> Mario
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="MegaMan"> Mega Man
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="MetalGear"> Metal Gear
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Metroid"> Metroid
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Mii"> Mii
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Mother"> Mother
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Other"> Other
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="PacMan"> Pac-Man
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Persona"> Persona
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Pikmin"> Pikmin
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Pokemon"> Pokemon
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="PunchOut"> Punch Out
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="ROB"> R.O.B.
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Smash"> Super Smash Brothers
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Sonic"> Sonic
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Splatoon"> Splatoon
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="StarFox"> Star Fox
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="StreetFighter"> Street Fighter
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Wario"> Wario
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="WiiFit"> Wii Fit
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Xenoblade"> Xenoblade
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Yoshi"> Yoshi
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Zelda"> Zelda 
                     <br />
-                    <div id="yearSlider"> </div>
+                    <div id="yearSlider" style="margin-top: 50px;"> </div>
                     <div onClick="handleSidebarSpiritInput()" style="background-color: white; border-radius: 10px; border: 1px solid black; color: black;">Test Sorting API</div>
                 </form>
             </div>
@@ -191,10 +198,18 @@
     function getSpirit(action, id) {
         switch(action) {
             case 'next':   
-                spiritID = id + 1;
+                if(id != max) {
+                    spiritID = id + 1;
+                } else {
+                    spiritID = 1;
+                }
                 break;
             case 'previous':
-                spiritID = id - 1;
+                if(id == 1) {
+                    spiritID = max;
+                } else {
+                    spiritID = id - 1;
+                }
                 break;
             case 'random':
                 spiritID = Math.floor(Math.random() * max);
@@ -218,7 +233,7 @@
         return fetch(url, options)
             .then(response => response.json())
             .then(jsonresponse => {
-                console.log(jsonresponse.records);
+                
                 let id = Number(jsonresponse.records[0].id);
                 let name = jsonresponse.records[0].name;
                 let game = jsonresponse.records[0].game;
@@ -247,6 +262,7 @@
                 currentID = id;
                 getNextSpirit(spiritID);
                 getPreviousSpirit(spiritID);
+                getSidebarSpirits("id", spiritID - 1, "all", [1979, 2019]);
                 history.pushState({}, null, `details.php?id=${spiritID}`)
             })
             .catch(error=> console.error(error));
@@ -292,6 +308,9 @@ function getSidebarSpirits(sort, offset, includeArr, yearRange) {
             sentSort = "id";
             break;
     }
+    if (sentSort != "id") {
+        sentOffset = 0;
+    }
     let url = "./api/spirits/detailsSearch.php";
     let options = {
         method: "POST",
@@ -329,20 +348,20 @@ function getSidebarSpirits(sort, offset, includeArr, yearRange) {
         })
         .catch(error => console.error(error));
 }
-getSidebarSpirits("id",<?php echo $id - 1; ?> ,"all", [1980, 2019]);
+getSidebarSpirits("id",<?php echo $id - 1; ?> ,"all", [1979, 2019]);
 
 
 
     let yearSlider = document.getElementById('yearSlider');
     noUiSlider.create(yearSlider, {
-        start: [1980, 2019],
+        start: [1979, 2019],
         animate: true,
         animationDuration: 350,
         connect: true,
         step: 1,
         tooltips: true,
         range: {
-            'min': 1980,
+            'min': 1979,
             'max': 2019
         },
         format: {
@@ -356,7 +375,7 @@ getSidebarSpirits("id",<?php echo $id - 1; ?> ,"all", [1980, 2019]);
     });
 
     function handleSidebarSpiritInput() {
-        console.log(document.getElementById('searchSettings').elements);
+        
         let sortValue;
         let offsetValue;
         let seriesValue = [];
@@ -375,7 +394,11 @@ getSidebarSpirits("id",<?php echo $id - 1; ?> ,"all", [1980, 2019]);
             var temp = parts[i].split("=");
             $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
         }
-        offsetValue = $_GET.id;
+        if(sortValue != "id") {
+            offsetValue = 0;
+        }else {
+            offsetValue = $_GET.id - 1;
+        }
         //handle series input
         for(var b = 4; b < 39; b++) {
             if(inputs[b].checked) {
@@ -386,6 +409,7 @@ getSidebarSpirits("id",<?php echo $id - 1; ?> ,"all", [1980, 2019]);
         let minYear = Number(yearSlider.noUiSlider.get()[0]);
         let maxYear = Number(yearSlider.noUiSlider.get()[1]);
         yearRangeValue = [minYear, maxYear];
+        
         return getSidebarSpirits(sortValue, offsetValue, seriesValue, yearRangeValue);
     }
 
@@ -393,6 +417,91 @@ getSidebarSpirits("id",<?php echo $id - 1; ?> ,"all", [1980, 2019]);
     document.getElementsByClassName("noUi-tooltip").map(item => {
        item.innerHTML = item.innerHTML.slice(0, -3); 
     });
+    function getAutoResult() {
+        let searchValue = document.getElementById('searchText').value;
+        let url = `api/spirits/autoResponse.php?query=${searchValue}`;
+        let options = {
+            method: "GET",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            redirect: "follow",
+            referrer: "no-referrer"
+        }
+        return fetch(url, options)
+            .then(response => response.json())
+            .then(data => {
+                let spiritResults = data.spirits;
+                let responsehtml = ``;
+                spiritResults.map(spirit => {
+                    let i = spirit.id;
+                    let n = spirit.name;
+                    responsehtml = responsehtml + `<p onClick="getSpirit('default', ${i})">${n}</p>`;
+                });
+                document.getElementById('searchResults').innerHTML = responsehtml; 
+            })
+            .catch(error=> console.error(error));
+    }
+    function search() {
+        let searchValue = document.getElementById('searchText').value;
+        let url = `api/spirits/autoResponse.php?query=${searchValue}`;
+        let options = {
+            method: "GET",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            redirect: "follow",
+            referrer: "no-referrer"
+        }
+        return fetch(url, options)
+            .then(response => response.json())
+            .then(data => {
+                let spiritResults = data.spirits;
+                if(spiritResults.length == 1 || spiritResults[0].name.toUpperCase() == searchValue.toUpperCase()) {
+                    
+                    getSpirit("default", spiritResults[0].id);
+                }
+            })
+            .catch(error => console.error(error));
+    }
+    
+    function callSidebarResults(func, wait, immediate) {
+        console.log('callsidebarresults got called');
+        let timeout;
+        return function() {
+            let context = this;
+            let args = arguments;
+            let later = function() {
+                timeout = null;
+                if(!immediate) {
+                    func.apply(context, args);
+                }
+            };
+            let callNow = immediate && !timeout;
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait || 200);
+            if(callNow) {
+                func.apply(context, args);
+            }
+        }
+    }
+    function clearSearchResults(e) {
+        if(e.target.id != 'searchResults') {
+            console.log('called');
+            document.getElementById('searchResults').style.display = "none";
+            document.getElementById('searchResults').innerHTML = "";
+            document.getElementById('searchValue').value = "";
+        }
+    }
+    document.addEventListener('click', clearSearchResults, false);
+    yearSlider.noUiSlider.on('update.a', function() { return callSidebarResults(handleSidebarSpiritInput(), 500, false);});
+    yearSlider.noUiSlider.on('change.a', alert('hi'));
 </script>
 </html>
 

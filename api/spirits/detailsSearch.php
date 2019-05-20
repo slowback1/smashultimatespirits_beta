@@ -5,8 +5,8 @@
     $sortType = $post->sortType;
     $offset = $post->offset;
     $includes = $post->includes;
-    $minYear = $post->minYear - 1;
-    $maxYear = $post->maxYear + 1;
+    $minYear = $post->minYear;
+    $maxYear = $post->maxYear;
     $includesSql = "WHERE";
     if($includes != "all") {
         foreach($includes as $i) {

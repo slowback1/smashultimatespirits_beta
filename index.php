@@ -136,20 +136,24 @@
         numOfSpirits += 60;
         return loadMore(num)
     }
-    if(!isNaN($_GET.place)) {
-        throttle(callLoadMore($_GET.place - 1));
-        numOfSpirits = Number($_GET.place) + 59;
-    } else {
-        throttle(callLoadMore(0), 2500);
-    }
+    
     function checkIfAtBottom() {
         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 250) {
             throttle(callLoadMore(numOfSpirits), 2500);
         }
     }  
     
-    document.addEventListener('scroll', function(){setTimeout(checkIfAtBottom(), 1500)}, false);
-
+    
+    if(!isNaN($_GET.place)) {
+        throttle(callLoadMore($_GET.place - 1));
+        numOfSpirits = Number($_GET.place) + 59;
+        document.addEventListener('scroll', function(){setTimeout(checkIfAtBottom(), 1500)}, false);
+    } else if($_GET.Search) {
+        search("name", $_GET.Search);
+    } else {
+        throttle(callLoadMore(0), 2500);
+        document.addEventListener('scroll', function(){setTimeout(checkIfAtBottom(), 1500)}, false);
+    }
 </script>
 
 
