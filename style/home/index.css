@@ -161,7 +161,7 @@ nav .searchArea .searchResults .searchResultHeader {
   font-size: 1.125rem;
   margin-bottom: 0.25rem;
 }
-nav .searchArea .searchResults a {
+nav .searchArea .searchResults p, nav .searchArea .searchResults a {
   width: 100%;
   color: inherit;
   text-decoration: none;
@@ -170,8 +170,9 @@ nav .searchArea .searchResults a {
   padding-left: 0.485rem;
   transition: 0.5s;
 }
-nav .searchArea .searchResults a:hover {
+nav .searchArea .searchResults p:hover, nav .searchArea .searchResults a:hover {
   background-color: #3a506bb9;
+  cursor: pointer;
 }
 
 .gluedToTop {

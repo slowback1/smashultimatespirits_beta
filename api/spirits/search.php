@@ -2,7 +2,19 @@
     include '../../connection/connect.php';
     $query = $_GET['searchQuery'];
     $searchType = $_GET['searchType'];
-    $sql = "SELECT * FROM spirits WHERE $searchType LIKE '%$query%' ORDER BY CASE WHEN $searchType LIKE '$query%' THEN 1 ELSE id END LIMIT 30";
+    $limit = "";
+    if($searchType == "name") {
+        $limit = "LIMIT 30";
+    }
+    $sql = "SELECT id, name, game, series FROM spirits
+     WHERE $searchType LIKE '%$query%' 
+     ORDER BY CASE 
+     WHEN $searchType LIKE '$query%'
+      THEN 1 
+      ELSE 2 
+      END ASC,
+      id ASC
+      $limit";
     $res_arr = array();
     $result = $conn->query($sql);
     if($result->num_rows > 0) {

@@ -16,9 +16,6 @@
             <a href="javascript:void(0)" onClick="toggleSidebar()"><img src="img/hamburger.png" alt="hamburger Button" id="hamburgerBtn" /></a>
         </div>
         <div class="searchArea">
-            <form onSubmit="handleSearch()">
-                
-            </form>
             <input type="text" onKeyup="findAutoResult()" autocomplete="off" name="searchValue" id="searchValue" placeholder="Search" />
             <button onClick="handleSearch()" class="searchButton">Search</button>
             <div class="searchResults" id="searchResults">
@@ -79,6 +76,44 @@
         
     </div>
 <script>
+    let loadMoreDisabled = false;
+    const seriesObj = {
+                    "AnimalCrossing" : "Animal Crossing",
+                    "Bayonetta" : "Bayonetta",
+                    "Castlevania" : "Castlevania",
+                    "DK" : "Donkey Kong",
+                    "DuckHunt" : "Duck Hunt",
+                    "FinalFantasy": "Final Fantasy",
+                    "FireEmblem" : "Fire Emblem",
+                    "FZero" : "F-Zero",
+                    "GameWatch" : "Game & Watch",
+                    "IceClimber" : "Ice Climber",
+                    "KidIcarus" : "Kid Icarus",
+                    "Kirby" : "Kirby",
+                    "Mario" : "Mario",
+                    "MegaMan": "Mega Man",
+                    "MetalGear" : "Metal Gear",
+                    "Metroid" : "Metroid",
+                    "Mii" : "Mii",
+                    "Mother" : "Mother",
+                    "Other" : "Other",
+                    "PacMan" : "Pac-Man",
+                    "Persona" : "Persona",
+                    "Pikmin" : "Pikmin",
+                    "Pokemon" : "Pokemon",
+                    "PunchOut" : "Punch-Out!!",
+                    "ROB" : "R.O.B.",
+                    "Smash" : "Super Smash Brothers",
+                    "Sonic" : "Sonic",
+                    "Splatoon" : "Splatoon",
+                    "StarFox" : "Star Fox",
+                    "StreetFighter" : "Street Fighter",
+                    "Wario" : "Wario",
+                    "WiiFit" : "Wii Fit",
+                    "Xenoblade" : "Xenoblade",
+                    "Yoshi" : "Yoshi",
+                    "Zelda" : "The Legend of Zelda"
+                };
     const maxSpirits = 1320;
     function getRemainingSpirits() {
         let url = 'api/spirits/count.php';
@@ -177,10 +212,13 @@
         }
     }
     document.addEventListener('scroll', function(){checkNav()});
-    let searchText = "";
+    let lastResult = "";
     function findAutoResult() {
-        searchText = document.getElementById('searchValue.value');
         let searchValue = document.getElementById('searchValue').value;
+        if(searchValue == "" || searchValue == lastResult) {
+            return false;
+        }
+        lastResult = searchValue;
         let url = `api/spirits/autoResponse.php?query=${searchValue}`;
         let options = {
             method: "GET",
@@ -200,28 +238,29 @@
                 let spiritResults = jsonresponse.spirits;
                 let gameResults = jsonresponse.game;
                 let seriesResults = jsonresponse.series;
-                let spiritHtml = `<p class='searchResultHeader'>Spirits</p>`;
+                let spiritHtml = `<h4 class='searchResultHeader'>Spirits</h4>`;
                 spiritResults.map(spirit => {
                     let i = spirit.id;
                     let n = spirit.name;
                     spiritHtml = spiritHtml + `<a href='details.php?id=${i}'>${n}</a>`;
                 });
-                let gameHtml = `<p class='searchResultHeader'>Games</p>`;
+                let gameHtml = `<h4 class='searchResultHeader'>Games</h4>`;
                 gameResults.map(game => {
                     let g = game.game;
-                    gameHtml = gameHtml + `<a href=javascript:void() onClick='search('game',${g})> ${g} </a>`;
+                    gameHtml = gameHtml + `<p onClick="search('game','${g}')"> ${g} </p>`;
                 });
-                let seriesHtml = `<p class='searchResultHeader'>Series</p>`;
+                let seriesHtml = `<h4 class='searchResultHeader'>Series</h4>`;
+                
                 seriesResults.map(series => {
-                    let s = series.series;
-                    seriesHtml = seriesHtml + `<a href=javascript:void() onClick='search('series', ${s})> ${s} </a>`;
+                    let s = seriesObj[series.series];
+                    seriesHtml = seriesHtml + `<p onClick="search('series', '${series.series}')"> ${s} </p>`;
                 });
                 document.getElementById('searchResults').style.display = "flex";
                 document.getElementById('searchResults').innerHTML = spiritHtml + gameHtml + seriesHtml;
             })
             .catch(error => console.error(error));
     }
-
+    
 
     function search(type, query) {
         const url = `./api/spirits/search.php?searchType=${type}&searchQuery=${query}`;
@@ -245,12 +284,15 @@
                 jsonresponse.map(spirit => {
                     response = response + spiritBox(spirit.id, spirit.name, spirit.series);
                 });
+                loadMoreDisabled = true;
                 document.getElementById('main').innerHTML = response;
             });
     }
+    
     function handleSearch() {
         let type = "name";
         let value = document.getElementById('searchValue').value;
+        lastResult = value;
         history.pushState({}, null, `index.php?Search=${value}`);
         return search(type, value);
     }
@@ -259,6 +301,7 @@
             document.getElementById('searchResults').style.display = "none";
             document.getElementById('searchResults').innerHTML = "";
             document.getElementById('searchValue').value = "";
+            lastResult = "";
         }
     }
     document.addEventListener('click', clearSearchResults, false);

@@ -88,6 +88,9 @@
     let numOfSpirits = 0;
     //count is an integer, which represents how many times loadMore has been called since page load
     function loadMore(count) {
+        if(loadMoreDisabled) {
+            return false;
+        }
         let url = "";
         if(count >= max) {
             url = `./api/spirits/getSome.php?limit=60?offset=0`;

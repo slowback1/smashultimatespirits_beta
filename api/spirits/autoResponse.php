@@ -1,7 +1,7 @@
 <?php
     include '../../connection/connect.php';
     $query = $_GET['query'];
-    $sqlS = "SELECT name, id, game, series FROM spirits WHERE name LIKE '%$query%' ORDER BY CASE WHEN name LIKE '$query%' THEN 1 ELSE id END LIMIT 5";
+    $sqlS = "SELECT  name, id, game, series FROM spirits WHERE name LIKE '%$query%' ORDER BY CASE WHEN name LIKE '$query%' THEN 1 ELSE 2 END, id LIMIT 5";
     $res_arr = array();
     $res_arr['spirits'] = array();
     $result = $conn->query($sqlS);
@@ -17,19 +17,18 @@
     }
     }
 
-    $sqlG = "SELECT game, series FROM spirits WHERE game LIKE '%$query%' ORDER BY CASE WHEN game LIKE '$query%' THEN 1 ELSE game END LIMIT 3";
+    $sqlG = "SELECT DISTINCT game FROM spirits WHERE game LIKE '%$query%' ORDER BY CASE WHEN game LIKE '$query%' THEN 1 ELSE game END LIMIT 3";
     $res_arr['game'] = array();
     $result = $conn->query($sqlG);
     if($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
         $item = array(
             "game" => $row['game'],
-            "series" => $row['series']
         );
         array_push($res_arr['game'], $item);
     }
     }
-    $sqlSe = "SELECT series FROM spirits WHERE series LIKE '%$query%' ORDER BY CASE WHEN series LIKE '$query%' THEN 1 ELSE series END LIMIT 1";
+    $sqlSe = "SELECT DISTINCT series FROM spirits WHERE series LIKE '%$query%' ORDER BY CASE WHEN series LIKE '$query%' THEN 1 ELSE series END LIMIT 1";
     $res_arr['series'] = array();
     $result = $conn->query($sqlSe);
     if($result->num_rows > 0) {

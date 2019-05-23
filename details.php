@@ -80,7 +80,6 @@
                     <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Metroid"> Metroid
                     <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Mii"> Mii
                     <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Mother"> Mother
-                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Other"> Other
                     <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="PacMan"> Pac-Man
                     <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Persona"> Persona
                     <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Pikmin"> Pikmin
@@ -97,6 +96,7 @@
                     <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Xenoblade"> Xenoblade
                     <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Yoshi"> Yoshi
                     <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Zelda"> Zelda 
+                    <input type="checkbox" name="series" onchange="callSidebarResults(handleSidebarSpiritInput(), 500, false)" value="Other"> Other
                     <br />
                     <div id="yearSlider" style="margin-top: 50px;"> </div>
                     <div onClick="handleSidebarSpiritInput()" style="background-color: white; border-radius: 10px; border: 1px solid black; color: black;">Test Sorting API</div>
@@ -132,6 +132,26 @@
 <script>
     //this constant needs to be updated whenever there is a new total amount of spirits
     const max = 1320;
+    const throttle = (func, limit) => {
+       let lastFunc;
+       let lastRan;
+       return function() {
+           const context = this;
+           const args = arguments;
+           if(!lastRan) {
+               func.apply(context,args);
+               lastRan = Date.now();
+           } else {
+               clearTimeout(lastFunc);
+               lastFunc = setTimeout(function() {
+                   if((Date.now() - lastRan) >= limit) {
+                        func.apply(context, args);
+                        lastRan = Date.now();        
+                   }
+               }, limit - (Date.now() - lastRan));
+           }
+       }
+   }
     function getNextSpirit(id) {
         if(id == max) {
             nextID = 1;
@@ -334,6 +354,9 @@ function getSidebarSpirits(sort, offset, includeArr, yearRange) {
         .then(response => response.json())
         .then(data => {
             htmlresponsecode = `<div class="spiritsSidebar">`;
+            if(data.message == "No Spirits Found") {
+                document.getElementById('searchBody').innerHTML = "";
+            } else {
             data.map(item => {
                 htmlresponsecode = htmlresponsecode + `
                     <div class="spiritsSidebarItem" onClick="getSpirit('default', ${item.id.toString()})">`
@@ -344,7 +367,7 @@ function getSidebarSpirits(sort, offset, includeArr, yearRange) {
             });
             htmlresponsecode = htmlresponsecode + `</div>`;
             document.getElementById('searchBody').innerHTML = htmlresponsecode;
-
+        }
         })
         .catch(error => console.error(error));
 }
@@ -373,7 +396,8 @@ getSidebarSpirits("id",<?php echo $id - 1; ?> ,"all", [1979, 2019]);
             }
         }
     });
-
+    yearSlider.noUiSlider.on('update', throttle(handleSidebarSpiritInput, 500));
+    
     function handleSidebarSpiritInput() {
         
         let sortValue;
@@ -410,7 +434,7 @@ getSidebarSpirits("id",<?php echo $id - 1; ?> ,"all", [1979, 2019]);
         let maxYear = Number(yearSlider.noUiSlider.get()[1]);
         yearRangeValue = [minYear, maxYear];
         
-        return getSidebarSpirits(sortValue, offsetValue, seriesValue, yearRangeValue);
+        return throttle(getSidebarSpirits(sortValue, offsetValue, seriesValue, yearRangeValue), 500);
     }
 
 
