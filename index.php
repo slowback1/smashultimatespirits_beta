@@ -111,23 +111,7 @@
             .then(response => response.json())
             .then(jsonresponse => {
                 jsonresponse.map(spirit => {
-                    let sid = spirit.id;
-                    let name = spirit.name;
-                    let series = spirit.series;
-                    let responsehtmlcode = `
-                    <div class='spiritBox'>
-                    <a href="details.php?id=${sid}">
-                        <div class='spiritImgContainer'>
-                            <img src='img/spiritImages/${sid}.png' alt='${name}' />
-                        </div>
-                        <div class='lowerBox'>
-                            <img src='img/seriesIcons/${series}.png' alt='${series}' />
-                            <p> ${sid} ${name} </p>
-                        </div>
-                        </a>
-                    </div>
-                    `;
-                    document.getElementById('main').innerHTML = document.getElementById('main').innerHTML + responsehtmlcode;
+                    document.getElementById('main').innerHTML = document.getElementById('main').innerHTML + spiritBox(spirit.id, spirit.name, spirit.series);
                 })
             })
             .catch(error => console.error(error));

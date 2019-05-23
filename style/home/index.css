@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css?family=Kaushan+Script|Overpass&display=swap");
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -53,19 +54,19 @@ table {
 }
 
 /* end reset */
-.spiritBox, .main, header {
-  background-color: #313a49;
-  color: #f7f8f9;
+.spiritBox a .upperBox, .spiritBox, .main, header {
+  background-color: #061d4c;
+  color: #c5cffd;
 }
 
 footer, nav {
-  background-color: #45494f;
-  color: #b2b9c4;
+  background-color: #3a506bb9;
+  color: #ebebeb;
 }
 
-.sidebar, nav .searchArea .searchResults {
-  background-color: #030f23;
-  color: #c2c3c4;
+.spiritBox a .spiritImgContainer, .sidebar, nav .searchArea .searchResults {
+  background-color: #e4fde1;
+  color: #2b2424;
 }
 
 .main {
@@ -77,7 +78,7 @@ footer, nav {
   flex-wrap: wrap;
 }
 
-footer .fCol, footer, .spiritBox a .lowerBox, nav .searchArea form, nav {
+footer .fCol, footer, .spiritBox a .lowerBox, .spiritBox a .upperBox, nav .searchArea form, nav {
   display: -webkit-box;
   display: ms-flex-box;
   display: -webkit-flex;
@@ -86,13 +87,21 @@ footer .fCol, footer, .spiritBox a .lowerBox, nav .searchArea form, nav {
   flex-wrap: nowrap;
 }
 
-.spiritBox, .sidebar, body, nav .searchArea .searchResults, nav .searchArea {
+.spiritBox a .spiritImgContainer, .spiritBox a, .spiritBox, .sidebar, body, nav .searchArea .searchResults, nav .searchArea {
   display: -webkit-box;
   display: ms-flex-box;
   display: -webkit-flex;
   display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
+}
+
+.spiritBox a .lowerBox {
+  font-family: "Overpass", sans-serif;
+}
+
+.spiritBox a .upperBox {
+  font-family: "Kaushan Script", cursive;
 }
 
 header {
@@ -141,6 +150,7 @@ nav .searchArea form input[type=submit] {
   flex-grow: 2;
 }
 nav .searchArea .searchResults {
+  display: none;
   justify-content: center;
   align-items: center;
   z-index: 10000;
@@ -161,7 +171,7 @@ nav .searchArea .searchResults a {
   transition: 0.5s;
 }
 nav .searchArea .searchResults a:hover {
-  background-color: #45494f;
+  background-color: #3a506bb9;
 }
 
 .gluedToTop {
@@ -170,7 +180,7 @@ nav .searchArea .searchResults a:hover {
 }
 
 body {
-  background-color: #313a49;
+  background-color: #061d4c;
   overflow-x: hidden;
 }
 
@@ -221,10 +231,11 @@ body {
 }
 
 .spiritBox {
-  height: 11.25rem;
-  width: 6.5rem;
+  border: 0.35rem solid #62929e;
+  border-radius: 5px;
+  height: 13.25rem;
+  width: 8.5rem;
   margin: 0.75rem 1.5rem;
-  border: 1px solid #313a49;
 }
 .spiritBox a {
   height: 100%;
@@ -233,24 +244,52 @@ body {
   text-decoration: none;
 }
 .spiritBox a .spiritImgContainer {
-  width: 100%;
-  height: 80%;
-  border-bottom: 1px solid #45494f;
+  align-self: center;
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.25rem;
+  width: 95%;
+  height: 70%;
   overflow: hidden;
 }
 .spiritBox a .spiritImgContainer img {
-  max-width: 100%;
+  max-height: 100%;
   height: auto;
   width: auto;
   padding: 0.25rem;
 }
-.spiritBox a .lowerBox {
-  font-size: 1.125rem;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+.spiritBox a .upperBox {
+  flex-direction: row-reverse;
+  justify-content: space-between;
 }
-.spiritBox a .lowerBox img {
-  width: 1.25rem;
-  height: 1.25rem;
+.spiritBox a .upperBox img {
+  width: 1.75rem;
+  height: 1.75rem;
+}
+.spiritBox a .upperBox .other {
+  width: 25%;
+  height: 25%;
+  margin: auto 0.25rem;
+}
+.spiritBox a .upperBox .mgs {
+  height: 1.75rem;
+  width: auto;
+}
+.spiritBox a .upperBox img, .spiritBox a .upperBox p {
+  margin: 0.25rem;
+}
+.spiritBox a .upperBox p {
+  font-size: 1.5rem;
+  font-weight: 200;
+}
+.spiritBox a .lowerBox {
+  font-size: 1rem;
+  overflow: inherit;
+  text-align: center;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  align-items: center;
+  justify-content: center;
 }
 
 footer {
@@ -264,7 +303,7 @@ footer .fCol .fSCol {
   font-size: 0.75rem;
 }
 footer .fCol .fSCol a {
-  color: #c2c3c4;
+  color: #2b2424;
   text-decoration: none;
   display: inline;
 }

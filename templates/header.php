@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>Super Smash Brothers Ultimate Spirits Directory</title>
     <link rel="stylesheet" href="style/home/index.css">
+    <script src="templates/spiritBox.js"></script>
 </head>
 <body>
     <header id="header">
@@ -16,9 +17,10 @@
         </div>
         <div class="searchArea">
             <form onSubmit="handleSearch()">
-                <input type="text" onKeyup="findAutoResult()" autocomplete="off" name="searchValue" id="searchValue" placeholder="Search" />
-                <input type="submit"  name="Search" />
+                
             </form>
+            <input type="text" onKeyup="findAutoResult()" autocomplete="off" name="searchValue" id="searchValue" placeholder="Search" />
+            <button onClick="handleSearch()" class="searchButton">Search</button>
             <div class="searchResults" id="searchResults">
 
             </div>
@@ -241,23 +243,7 @@
                 document.getElementById('main').innerHTML = "";
                 let response = '';
                 jsonresponse.map(spirit => {
-                    let id = spirit.id;
-                    let name = spirit.name;
-                    let series = spirit.series;
-                    let rhtml = `
-                    <div class='spiritBox'>
-                    <a href="details.php?id=${id}">
-                        <div class='spiritImgContainer'>
-                            <img src='img/spiritImages/${id}.png' alt='${name}' />
-                        </div>
-                        <div class='lowerBox'>
-                            <img src='img/seriesIcons/${series}.png' alt='${series}' />
-                            <p> ${id} ${name} </p>
-                        </div>
-                        </a>
-                    </div>
-                    `;
-                    response = response + rhtml;
+                    response = response + spiritBox(spirit.id, spirit.name, spirit.series);
                 });
                 document.getElementById('main').innerHTML = response;
             });
