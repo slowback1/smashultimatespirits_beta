@@ -31,12 +31,30 @@ nav {
         min-width: 40%;
         max-width: 50%;
         @extend %flex-column-nowrap;
-        input[type="text"] {
-            border-radius: 10px;
-            flex-basis: 5;
-            flex-grow: 0;
+        align-items: center;
+        .searchForm {
+            @extend %flex-row-nowrap;
+            height: 100% !important;
+            width: 90%;
+            transition: 0.5s;
+            input[type="text"] {
+                @extend %tertiary-colors;
+                border-radius: 10px;
+                flex-basis: 5;
+                flex-grow: 0;
+                width: 80%;
+                height: 70%;
+                align-self: center;
+            }
+            button {
+                @extend %tertiary-colors;
+                flex-basis: 2;
+                height: 80%;
+                align-self: center;
+                border-radius: 10px;
+                margin-left: .25rem;
+            }
         }
-
         form {
             width: 100%;
             @extend %flex-row-nowrap;
@@ -74,6 +92,10 @@ nav {
                 cursor: pointer;
             }
         }
+    }
+    .invisible {
+        width: 64px;
+        height: 64px;
     }
 }
 .gluedToTop {

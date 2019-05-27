@@ -1,7 +1,7 @@
 .sidebar {
     transition: 0.5s;
     overflow-x: hidden;
-    @extend %tertiary-colors;
+    @extend %primary-colors;
     @extend %flex-column-nowrap;
     position: fixed;
     left: 0;
@@ -38,5 +38,14 @@
     }
     #remainingSpirits {
         margin-top: 1rem;
+    }
+}
+.active {
+    width: 196px;
+}
+@media screen and (max-width: 800px) {
+    .active {
+        width: 100vw;
+        text-align: center;
     }
 }

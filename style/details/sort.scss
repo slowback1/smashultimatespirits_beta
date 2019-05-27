@@ -1,0 +1,85 @@
+.sortSection {
+    @extend %flex-column-nowrap;
+    @extend %tertiary-colors;
+    position: fixed;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    left: 0rem;
+    top: 5rem;
+    width: 20rem;
+    height: 85vh;
+    .sortHead {
+        #sortSettings {
+            @extend %flex-column-nowrap;
+            #sortSetRadios {
+                @extend %flex-row-nowrap;
+                align-items: center;
+                
+            }
+            #sortSetCheckboxes {
+                height: 360px;
+                margin-top: 1rem;
+                @extend %flex-column-wrap;
+                p {
+                    position: absolute;
+                    top: 2rem;
+                }
+            }
+        }
+    }
+}
+@media screen and (max-width: 1000px) {
+    .sortSection {
+        position: static;
+        width: 93%;
+        padding: 0 7%;
+        top: 4rem;
+        .sortHead {
+            #sortSettings {
+                #sortSetCheckboxes {
+                    margin-top: 3rem;
+                    flex-direction: row;
+                    height: 200px;
+                    div {
+                        height: 20px;
+                    }
+                    p {
+                        top: 7.5rem;
+                    }
+                }
+                #yearSlider {
+                    height: 10rem !important;
+                    margin-top: 0;
+                    bottom: -10rem;
+                    right: -80vw;
+                }
+            }
+        }
+    }
+}
+#yearSlider {
+    margin-top: 50px;
+    
+    position: relative;
+    bottom: 2rem;
+    right: -18rem;
+    height: 10rem;
+    p {
+        position: relative;
+        top: -2rem;
+        right: 2.75rem;
+        width: 5rem;
+        overflow: show;
+    }
+}
+#searchBody {
+    position: relative;
+    top: -14rem;
+    p {
+        cursor: pointer;
+        
+       
+        width: 50%;
+        
+    }
+}

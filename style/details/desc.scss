@@ -26,7 +26,7 @@ body {
             min-height: 20rem;
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            
             @extend %flex-column-nowrap;
             img {
                 width: 100%;
@@ -58,6 +58,19 @@ body {
             img {
                 height: 1.5rem;
                 width: 1.5rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .descBody {
+        flex-direction: column;
+        align-self: center;
+        padding-bottom: 5rem;
+        .descSection {
+            .descImgContainer {
+                margin-bottom: 5rem;
             }
         }
     }

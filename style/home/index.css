@@ -54,7 +54,7 @@ table {
 }
 
 /* end reset */
-.spiritBox a .upperBox, .spiritBox, .main, header {
+.spiritBox a .upperBox, .spiritBox, .sidebar, .main, header {
   background-color: #061d4c;
   color: #c5cffd;
 }
@@ -64,7 +64,7 @@ footer, nav {
   color: #ebebeb;
 }
 
-.spiritBox a .spiritImgContainer, .sidebar, nav .searchArea .searchResults {
+.spiritBox a .spiritImgContainer, nav .searchArea .searchResults, nav .searchArea .searchForm button, nav .searchArea .searchForm input[type=text] {
   background-color: #e4fde1;
   color: #2b2424;
 }
@@ -78,7 +78,7 @@ footer, nav {
   flex-wrap: wrap;
 }
 
-footer .fCol, footer, .spiritBox a .lowerBox, .spiritBox a .upperBox, nav .searchArea form, nav {
+footer .fCol, footer, .spiritBox a .lowerBox, .spiritBox a .upperBox, nav .searchArea form, nav .searchArea .searchForm, nav {
   display: -webkit-box;
   display: ms-flex-box;
   display: -webkit-flex;
@@ -135,11 +135,27 @@ nav .hamburgerContainer a img {
 nav .searchArea {
   min-width: 40%;
   max-width: 50%;
+  align-items: center;
 }
-nav .searchArea input[type=text] {
+nav .searchArea .searchForm {
+  height: 100% !important;
+  width: 90%;
+  transition: 0.5s;
+}
+nav .searchArea .searchForm input[type=text] {
   border-radius: 10px;
   flex-basis: 5;
   flex-grow: 0;
+  width: 80%;
+  height: 70%;
+  align-self: center;
+}
+nav .searchArea .searchForm button {
+  flex-basis: 2;
+  height: 80%;
+  align-self: center;
+  border-radius: 10px;
+  margin-left: 0.25rem;
 }
 nav .searchArea form {
   width: 100%;
@@ -173,6 +189,10 @@ nav .searchArea .searchResults p, nav .searchArea .searchResults a {
 nav .searchArea .searchResults p:hover, nav .searchArea .searchResults a:hover {
   background-color: #3a506bb9;
   cursor: pointer;
+}
+nav .invisible {
+  width: 64px;
+  height: 64px;
 }
 
 .gluedToTop {
@@ -231,6 +251,16 @@ body {
   margin-top: 1rem;
 }
 
+.active {
+  width: 196px;
+}
+
+@media screen and (max-width: 800px) {
+  .active {
+    width: 100vw;
+    text-align: center;
+  }
+}
 .spiritBox {
   border: 0.35rem solid #62929e;
   border-radius: 5px;

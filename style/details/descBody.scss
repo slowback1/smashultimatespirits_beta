@@ -42,3 +42,14 @@
         }
     }
 }
+@media screen and (max-width: 1000px) {
+    body {
+        background-color: green;
+    }
+    nav {
+        background-color: beige;
+    }
+    .descBody {
+        flex-direction: column;
+    }
+}

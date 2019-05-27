@@ -16,8 +16,10 @@
             <a href="javascript:void(0)" onClick="toggleSidebar()"><img src="img/hamburger.png" alt="hamburger Button" id="hamburgerBtn" /></a>
         </div>
         <div class="searchArea">
-            <input type="text" onKeyup="findAutoResult()" autocomplete="off" name="searchValue" id="searchValue" placeholder="Search" />
-            <button onClick="handleSearch()" class="searchButton">Search</button>
+            <div class="searchForm">
+                <input type="text" onKeyup="findAutoResult()" autocomplete="off" name="searchValue" id="searchValue" placeholder="Search" />
+                <button onClick="handleSearch()" class="searchButton">Search</button>
+            </div>
             <div class="searchResults" id="searchResults">
 
             </div>
@@ -150,11 +152,11 @@
     let isOpen = false;
     function toggleSidebar() {
         if(isOpen) {
-            document.getElementById('sidebar').style.width = "0";
+            document.getElementById('sidebar').classList.toggle("active");
             setTimeout(function(){document.getElementById('sidebar').style.display = "none"}, 500);
             isOpen = false;
         } else {
-            setTimeout(function(){document.getElementById('sidebar').style.width = "196px"}, 100);
+            setTimeout(function(){document.getElementById('sidebar').classList.toggle("active")}, 100);
             document.getElementById('sidebar').style.display = "flex";
             isOpen = true;
         }
