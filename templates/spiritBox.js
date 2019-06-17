@@ -1,7 +1,7 @@
 function spiritBox(id, name, series) {
     res = `
     <div class='spiritBox'>
-    <a href="details.php?id=${id}">
+    <a href="./details/index.php?id=${id}">
         <div class="upperBox">
             <img src="img/seriesIcons/${series}.png" `;
     switch(series) {
