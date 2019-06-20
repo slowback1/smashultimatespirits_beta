@@ -16,18 +16,20 @@ body {
     flex-grow: 2;
     @extend %flex-row-nowrap;
     justify-content: space-between;
+
     .descSection {
         @extend %flex-column-nowrap;
         justify-content: space-around;
+
         .descImgContainer {
+            @extend %flex-column-nowrap;
             max-width: 50rem;
             max-height: 50rem;
             min-width: 20rem;
             min-height: 20rem;
             width: 100%;
-            height: 100%;
-            
-            @extend %flex-column-nowrap;
+            height: auto;
+
             img {
                 width: 100%;
                 height: auto;
@@ -35,21 +37,25 @@ body {
                 margin: auto;
             }
         }
+
         h2 {
             font-size: 3rem;
             @include transform(rotate(20deg));
             color: $fc3;
             margin-bottom: 2rem;
         }
+
         .descBox {
             width: 80%;
             border: .125rem solid;
             @extend %secondary-colors;
             padding: .75rem 1rem;
         }
+
         .primary {
             border-color: $fc1;
         }
+
         .secondary {
             border-color: $fc3;
             margin-top: .5rem;
@@ -63,11 +69,15 @@ body {
     }
 }
 
+//edits for smaller screens
 @media screen and (max-width: 1000px) {
     .descBody {
-        flex-direction: column;
+        flex-direction: column-reverse;
         align-self: center;
         padding-bottom: 5rem;
+        width: 100vw;
+        justify-content: flex-start;
+
         .descSection {
             .descImgContainer {
                 margin-bottom: 5rem;

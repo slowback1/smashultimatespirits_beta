@@ -5,12 +5,14 @@
     <title>Super Smash Brothers Ultimate Spirits Directory</title>
     <link rel="stylesheet" href="style/home/index.css">
     <script src="templates/spiritBox.js"></script>
+    <script src="./main.js"></script>
 </head>
+
 <body>
     <header id="header">
-        
         <h1>Super Smash Brothers Ultimate Spirits Directory</h1>
     </header>
+
     <nav id="nav">
         <div class="hamburgerContainer">
             <a href="javascript:void(0)" onClick="toggleSidebar()"><img src="img/hamburger.png" alt="hamburger Button" id="hamburgerBtn" /></a>
@@ -28,8 +30,8 @@
 
         </div>
     </nav>
+
     <div class="sidebar" id="sidebar">
-        
         <a class="closeBtn" href="javascript:void(0)" onClick="toggleSidebar()">&#10005;</a>
         <a class="sidebarLink" href="details.php?id=0">Random Spirit</a>
         <a class="sidebarLink" href="quiz.php">Quiz Game</a>
@@ -75,9 +77,10 @@
                 ";
             }
         ?>
-        
     </div>
+
 <script>
+
     let loadMoreDisabled = false;
     const seriesObj = {
                     "AnimalCrossing" : "Animal Crossing",
@@ -116,7 +119,6 @@
                     "Yoshi" : "Yoshi",
                     "Zelda" : "The Legend of Zelda"
                 };
-    const max = 1320;
     //check if there are any spirits missing
     function getRemainingSpirits() {
         let url = 'api/spirits/count.php';
@@ -130,13 +132,12 @@
             },
             redirect: "follow",
             referrer: "no-referrer",
-
         }
         return fetch(url, options)
             .then(response => response.json())
             .then(jsonresponse => {
                 let responsehtmlcode
-                if(jsonresponse.records.count >= max) {
+                if(jsonresponse.records.count >= max) { //"max" found in main.js, total number of spirits on the site
                     responsehtmlcode = `
                         <p>All ${max} spirits are accounted for!</p>
                     `;
@@ -151,8 +152,8 @@
     }
     //I don't remember why, but the timeout fixed a bug so keeping it as is
     setTimeout(function(){getRemainingSpirits()}, 500);
-    
-    
+
+
     let isOpen = false;
     function toggleSidebar() {
         if(isOpen) {
@@ -166,7 +167,7 @@
         }
     }
     document.getElementById('hamburgerBtn').addEventListener('onclick', function(){toggleSidebar()}, false);
-    
+
     //swipe functionality for sidebar
     document.addEventListener('touchstart', handleTouchStart, false);
     document.addEventListener('touchmove', handleTouchMove, false);
@@ -206,7 +207,7 @@
         yDown = null;
     }
 
-    
+/*
     let navIsTop = false;
     //lets navbar "stick" to top (this can probably be done better with CSS)
     function checkNav() {
@@ -220,6 +221,7 @@
         }
     }
     document.addEventListener('scroll', function(){checkNav()});
+*/
 
     //searchbar autoresponse functionality.  Will not fire if searchbar contents are empty or have not changed since the last time it fired
     let lastResult = "";
@@ -240,7 +242,7 @@
             },
             redirect: "follow",
             referrer: "no-referrer",
-            
+
         }
         return fetch(url, options)
             .then(response => response.json())
@@ -260,7 +262,7 @@
                     gameHtml = gameHtml + `<p onClick="search('game','${g}')"> ${g} </p>`;
                 });
                 let seriesHtml = `<h4 class='searchResultHeader'>Series</h4>`;
-                
+
                 seriesResults.map(series => {
                     let s = seriesObj[series.series];
                     seriesHtml = seriesHtml + `<p onClick="search('series', '${series.series}')"> ${s} </p>`;
@@ -270,8 +272,10 @@
             })
             .catch(error => console.error(error));
     }
-    //args are two strings, the first is one of "name", "game" or "series", the other is the search querystring
-    //replaces the contents in the #main div with the results from the spirit search api 
+
+    //replaces the contents in the #main div with the results from the spirit search api
+    //arg type: can be "name", "game", or "series"
+    //arg query: search querystring
     function search(type, query) {
         const url = `./api/spirits/search.php?searchType=${type}&searchQuery=${query}`;
         let options = {
@@ -284,7 +288,7 @@
             },
             redirect: "follow",
             referrer: "no-referrer",
-            
+
         }
         return fetch(url, options)
             .then(response => response.json())
@@ -315,5 +319,5 @@
         }
     }
     document.addEventListener('click', clearSearchResults, false);
-    
+
 </script>
