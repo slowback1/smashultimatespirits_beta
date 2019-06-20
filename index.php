@@ -29,42 +29,9 @@
 <div id="main" class="main">
 
 </div>
-<script>
-    //what to put here
-    //  function to load more spirits (keep at 60 at a time?)
-    //  function will grab spirits from the api, then build the html and append it to the .main div from the JSON data it recieves
-    //  call that function once on window load
-    //  call that function everytime the user scrolls near the bottom of the page, use a debouncer or setTimeout() so that the function doesn't get called a bunch of times when the user scrolls down!
-
-    //func is a function, limit is a "cooldown period", in miliseconds
-    /*function throttle(func, limit) {
-        let lastFunc;
-        let lastRan;
-        return function() {
-            const context = this;
-            const args = arguments;
-            if(!lastRan) {
-                func.apply(context, args);
-                lastRan = Date.now();
-            } else {
-                clearTimeout(lastFunc);
-                lastFunc = setTimeout(function() {
-                    if((Date.now() - lastRan) >= limit) {
-                        func.apply(context, args);
-                        lastRan = Date.now();
-                    }
-                }, limit - (Date.now() - lastRan));
-            }
-        }
-    }
-    */
-    const max = 1320;
-    var parts = window.location.search.substr(1).split("&");
-        var $_GET = {};
-        for (var i = 0; i < parts.length; i++) {
-            var temp = parts[i].split("=");
-            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
-        }
+<script>   
+    //args are a function, and an integer representing cooldown in ms
+    //prevents function from firing repeatedly
    const throttle = (func, limit) => {
        let lastFunc;
        let lastRan;
@@ -86,12 +53,14 @@
        }
    }
     let numOfSpirits = 0;
-    //count is an integer, which represents how many times loadMore has been called since page load
+    //count is an integer, which represents the offset value required for the api call
+    //calls spirits api and adds up to 60 more spiritboxes to the end of the #main div, template for spirit box is in templates/spiritBox.js
     function loadMore(count) {
         if(loadMoreDisabled) {
             return false;
         }
         let url = "";
+        //max is found in templates/header.php
         if(count >= max) {
             url = `./api/spirits/getSome.php?limit=60?offset=0`;
             numOfSpirits = 0;
@@ -119,23 +88,31 @@
             })
             .catch(error => console.error(error));
     }
+    //num is an integer, this should only be called using the global variable numOfSpirits, which is updated in the function
     function callLoadMore(num) {
         numOfSpirits += 60;
         return loadMore(num)
     }
-    
+    //calls the callLoadMore function with a throttle, so it doesn't fire a bunch of times at once
     function checkIfAtBottom() {
         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 250) {
             throttle(callLoadMore(numOfSpirits), 2500);
         }
     }  
-    
-    
+    //decode GET parameters on load
+    var parts = window.location.search.substr(1).split("&");
+        var $_GET = {};
+        for (var i = 0; i < parts.length; i++) {
+            var temp = parts[i].split("=");
+            $_GET[decodeURIComponent(temp[0])] = decodeURIComponent(temp[1]);
+        }
+    //initialize the #main div on pageload
     if(!isNaN($_GET.place)) {
         throttle(callLoadMore($_GET.place - 1));
         numOfSpirits = Number($_GET.place) + 59;
         document.addEventListener('scroll', function(){setTimeout(checkIfAtBottom(), 1500)}, false);
     } else if($_GET.Search) {
+        //search function is in templates/header.php
         search("name", $_GET.Search);
     } else {
         throttle(callLoadMore(0), 2500);

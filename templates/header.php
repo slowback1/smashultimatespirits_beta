@@ -29,7 +29,7 @@
         </div>
     </nav>
     <div class="sidebar" id="sidebar">
-        <!-- things need to go here -->
+        
         <a class="closeBtn" href="javascript:void(0)" onClick="toggleSidebar()">&#10005;</a>
         <a class="sidebarLink" href="details.php?id=0">Random Spirit</a>
         <a class="sidebarLink" href="quiz.php">Quiz Game</a>
@@ -116,7 +116,8 @@
                     "Yoshi" : "Yoshi",
                     "Zelda" : "The Legend of Zelda"
                 };
-    const maxSpirits = 1320;
+    const max = 1320;
+    //check if there are any spirits missing
     function getRemainingSpirits() {
         let url = 'api/spirits/count.php';
         let options = {
@@ -135,20 +136,23 @@
             .then(response => response.json())
             .then(jsonresponse => {
                 let responsehtmlcode
-                if(jsonresponse.records.count >= maxSpirits) {
+                if(jsonresponse.records.count >= max) {
                     responsehtmlcode = `
-                        <p>All ${maxSpirits} spirits are accounted for!</p>
+                        <p>All ${max} spirits are accounted for!</p>
                     `;
                 } else {
                     responsehtmlcode = `
                         <p>${jsonresponse.records.count} Spirits accounted for.</p>
-                        <p>${maxSpirits - jsonresponse.records.count} Spirits Remain.</p>
+                        <p>${max - jsonresponse.records.count} Spirits Remain.</p>
                     `;
                 }
                 document.getElementById('remainingSpirits').innerHTML = responsehtmlcode;
             })
     }
+    //I don't remember why, but the timeout fixed a bug so keeping it as is
     setTimeout(function(){getRemainingSpirits()}, 500);
+    
+    
     let isOpen = false;
     function toggleSidebar() {
         if(isOpen) {
@@ -162,12 +166,12 @@
         }
     }
     document.getElementById('hamburgerBtn').addEventListener('onclick', function(){toggleSidebar()}, false);
+    
+    //swipe functionality for sidebar
     document.addEventListener('touchstart', handleTouchStart, false);
     document.addEventListener('touchmove', handleTouchMove, false);
-
     var xDown = null;
     var yDown = null;
-
     function getTouches(e) {
         return e.touches || e.originalEvent.touches;
     }
@@ -176,6 +180,7 @@
         xDown = firstTouch.clientX;
         yDown = firstTouch.clientY;
     };
+    //if swipe left and sidebar open, close sidebar, if swipe right and sidebar closed, open sidebar
     function handleTouchMove(e) {
         if(!xDown || !yDown) {
             return;
@@ -201,8 +206,9 @@
         yDown = null;
     }
 
-
+    
     let navIsTop = false;
+    //lets navbar "stick" to top (this can probably be done better with CSS)
     function checkNav() {
         let target = document.getElementById('nav');
         if(window.scrollY > 200 && !navIsTop) {
@@ -214,6 +220,8 @@
         }
     }
     document.addEventListener('scroll', function(){checkNav()});
+
+    //searchbar autoresponse functionality.  Will not fire if searchbar contents are empty or have not changed since the last time it fired
     let lastResult = "";
     function findAutoResult() {
         let searchValue = document.getElementById('searchValue').value;
@@ -262,8 +270,8 @@
             })
             .catch(error => console.error(error));
     }
-    
-
+    //args are two strings, the first is one of "name", "game" or "series", the other is the search querystring
+    //replaces the contents in the #main div with the results from the spirit search api 
     function search(type, query) {
         const url = `./api/spirits/search.php?searchType=${type}&searchQuery=${query}`;
         let options = {
@@ -290,7 +298,7 @@
                 document.getElementById('main').innerHTML = response;
             });
     }
-    
+    //fires when search button is pressed, gathers data needed to pass to the search() function and changes url to indicate that hte page is displaying search results
     function handleSearch() {
         let type = "name";
         let value = document.getElementById('searchValue').value;
