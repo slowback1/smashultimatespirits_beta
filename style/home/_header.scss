@@ -8,10 +8,15 @@ header {
         margin-top: 0;
     }
 }
+
+//TODO: fix sidebar text to not wrap during transform
 nav {
     width: 100vw;
     height: 4rem;
     overflow: block;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
     @extend %flex-row-nowrap;
     @extend %secondary-colors;
     justify-content: space-between;
@@ -58,7 +63,7 @@ nav {
         form {
             width: 100%;
             @extend %flex-row-nowrap;
-            
+
             input[type="submit"] {
                 border-radius: 10px;
                 flex-basis: 3;
@@ -98,7 +103,7 @@ nav {
         height: 64px;
     }
 }
-.gluedToTop {
+/*.gluedToTop {
     position: fixed;
     top: 0;
-}
+}*/

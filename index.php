@@ -1,66 +1,33 @@
-
 <?php /*
-        Objectives Here:
-            Make the Search Results appear on this page (so it doesnt go to a different page when you search)
-            Find a better home for the searchbar (maybe have it on the right column on desktop, anchored to the top on mobile/tablet?)
-            Possibly ditch the banner
-            Run things through the upcoming API instead of just a PHP page running the outputs (so it no longer runs like in __old/actions/loadMore.php)
-            Improve Responsiveness
-                Things that need to change from Main site:
-                    * Hamburger Button needs to be bigger on smaller screens
-                    * Text needs to be bigger on smaller screens
-                    * Support for Ultrawide monitors (this probably just means giving the ability to have more than 6 spirits per row)
-                    * [ADD MORE HERE]
 
-
-
-
-
-
-
-
-
+    TODO: Find a better home for the searchbar (maybe have it on the right column on desktop, anchored to the top on mobile/tablet?)
+    TODO: Possibly bring back te banner
+    TODO: Run things through the upcoming API instead of just a PHP page running the outputs (so it no longer runs like in __old/actions/loadMore.php)
+    TODO: Text needs to be bigger on smaller screens
+    TODO: Support for Ultrawide monitors (this probably just means giving the ability to have more than 6 spirits per row)
+    BUG: when returning to index from details, spirits are listed starting from last viewed spirit, and you can't scroll up to view earlier spirits.
+    BUG: search bar is pretty fucky right now
 
     NOTE: Some of these things go in templates/header.php and templates/footer.php
 
  */ ?>
+
 <?php include 'templates/header.php'; ?>
 
 <div id="main" class="main">
 
 </div>
-<script>   
-    //args are a function, and an integer representing cooldown in ms
-    //prevents function from firing repeatedly
-   const throttle = (func, limit) => {
-       let lastFunc;
-       let lastRan;
-       return function() {
-           const context = this;
-           const args = arguments;
-           if(!lastRan) {
-               func.apply(context,args);
-               lastRan = Date.now();
-           } else {
-               clearTimeout(lastFunc);
-               lastFunc = setTimeout(function() {
-                   if((Date.now() - lastRan) >= limit) {
-                        func.apply(context, args);
-                        lastRan = Date.now();        
-                   }
-               }, limit - (Date.now() - lastRan));
-           }
-       }
-   }
+<script>
     let numOfSpirits = 0;
-    //count is an integer, which represents the offset value required for the api call
     //calls spirits api and adds up to 60 more spiritboxes to the end of the #main div, template for spirit box is in templates/spiritBox.js
+    //arg count: the offset value for the spirits that need to be loaded
+    //TODO: if possible, load number of spirits based on scroll speed? or something similar
     function loadMore(count) {
         if(loadMoreDisabled) {
             return false;
         }
         let url = "";
-        //max is found in templates/header.php
+        //max is found in main.js and imported through header.php
         if(count >= max) {
             url = `./api/spirits/getSome.php?limit=60?offset=0`;
             numOfSpirits = 0;
@@ -98,7 +65,7 @@
         if((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 250) {
             throttle(callLoadMore(numOfSpirits), 2500);
         }
-    }  
+    }
     //decode GET parameters on load
     var parts = window.location.search.substr(1).split("&");
         var $_GET = {};
